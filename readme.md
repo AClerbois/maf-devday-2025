@@ -64,6 +64,181 @@ Pour visualiser les slides :
 2. Utiliser les flèches ← → ou les boutons de navigation
 3. Utiliser les touches fléchées du clavier pour naviguer
 
+### Démos
+
+Les exemples de code sont disponibles dans le dossier [`src/`](src/).
+
+#### 📁 Structure des démos
+
+```
+src/
+├── 01-hello-world/     Premier agent simple avec Azure OpenAI
+└── (autres démos à venir)
+```
+
+#### 01-hello-world
+
+**Description** : Premier agent simple utilisant Azure OpenAI et Microsoft Agent Framework
+
+**Contenu** :
+- Connexion à Azure OpenAI avec `AzureCliCredential`
+- Création d'un agent simple avec instructions personnalisées
+- Exemple d'utilisation du modèle `mistral-medium-2505`
+
+**Code** :
+```csharp
+AIAgent agent = new AzureOpenAIClient(
+    new Uri("https://devday-2025-maf.openai.azure.com/"),
+    new AzureCliCredential())
+        .GetChatClient("mistral-medium-2505")
+        .CreateAIAgent(
+            instructions: "Tu es doué pour raconter des blagues sarcastiques.", 
+            name: "Joker");
+
+Console.WriteLine(await agent.RunAsync("Raconte-moi une blague sur un pirate."));
+```
+
+**Packages requis** :
+- `Azure.AI.OpenAI` (v2.5.0-beta.1)
+- `Azure.Identity` (v1.17.0)
+- `Microsoft.Agents.AI.OpenAI` (v1.0.0-preview.251028.1)
+
+---
+
+## 🔧 Configuration Azure AI Foundry
+
+### Prérequis
+
+- Un compte Azure actif
+- Azure CLI installé ([Installation](https://learn.microsoft.com/cli/azure/install-azure-cli))
+- .NET 10.0 SDK installé
+
+### Étape 1 : Authentification Azure
+
+```bash
+# Se connecter à Azure
+azd auth login
+
+# Ou utiliser Azure CLI
+az login
+
+# Sélectionner votre subscription
+az account set --subscription "VOTRE_SUBSCRIPTION_ID"
+
+# Vérifier la subscription active
+az account show
+```
+
+### Étape 2 : Créer une instance Azure AI Foundry
+
+1. **Via le portail Azure** ([ai.azure.com](https://ai.azure.com))
+   - Se connecter à Azure AI Foundry
+   - Cliquer sur **"Create new project"**
+   - Renseigner :
+     - **Project name** : `devday-2025-maf` (ou votre nom)
+     - **Subscription** : Sélectionner votre subscription
+     - **Resource group** : Créer ou sélectionner un groupe (ex: `rg-devday-maf`)
+     - **Location** : Choisir `West Europe` ou `France Central`
+   - Cliquer sur **"Create"**
+
+2. **Via Azure CLI** (alternative)
+   ```bash
+   # Créer un groupe de ressources
+   az group create --name rg-devday-maf --location westeurope
+   
+   # Créer un Azure AI hub
+   az ml workspace create \
+     --kind hub \
+     --resource-group rg-devday-maf \
+     --name devday-2025-maf-hub
+   
+   # Créer un projet
+   az ml workspace create \
+     --kind project \
+     --resource-group rg-devday-maf \
+     --name devday-2025-maf \
+     --hub-id /subscriptions/{subscription-id}/resourceGroups/rg-devday-maf/providers/Microsoft.MachineLearningServices/workspaces/devday-2025-maf-hub
+   ```
+
+### Étape 3 : Déployer un modèle
+
+1. **Via Azure AI Foundry Portal**
+   - Aller dans votre projet
+   - Cliquer sur **"Deployments"** dans le menu de gauche
+   - Cliquer sur **"+ Create deployment"**
+   - Sélectionner un modèle :
+     - **GPT-4o** : Modèle multimodal puissant
+     - **GPT-4o mini** : Version légère et rapide
+     - **Mistral Medium** : Alternative open source
+   - Renseigner :
+     - **Deployment name** : `mistral-medium-2505` (ou autre)
+     - **Model version** : Dernière version disponible
+     - **Tokens per Minute Rate Limit** : `10000` (ou selon besoin)
+   - Cliquer sur **"Deploy"**
+
+2. **Via Azure CLI** (alternative)
+   ```bash
+   az cognitiveservices account deployment create \
+     --resource-group rg-devday-maf \
+     --name devday-2025-maf \
+     --deployment-name mistral-medium-2505 \
+     --model-name mistral-medium \
+     --model-version "2505" \
+     --model-format OpenAI \
+     --sku-capacity 10 \
+     --sku-name "Standard"
+   ```
+
+### Étape 4 : Récupérer les informations de connexion
+
+1. Dans Azure AI Foundry, aller dans **"Settings"** > **"Properties"**
+2. Noter :
+   - **Endpoint** : `https://VOTRE-RESOURCE.openai.azure.com/`
+   - **Deployment name** : Le nom donné au modèle déployé
+3. Mettre à jour votre code avec ces valeurs
+
+### Étape 5 : Configurer l'authentification locale
+
+Pour utiliser `AzureCliCredential` (comme dans les démos) :
+
+```bash
+# Se connecter avec Azure CLI
+az login
+
+# Configurer les permissions (si nécessaire)
+az role assignment create \
+  --assignee YOUR_USER_EMAIL \
+  --role "Cognitive Services User" \
+  --scope /subscriptions/{subscription-id}/resourceGroups/rg-devday-maf/providers/Microsoft.CognitiveServices/accounts/devday-2025-maf
+```
+
+### Étape 6 : Tester votre configuration
+
+```bash
+# Dans le dossier src/01-hello-world/
+cd src/01-hello-world
+
+# Restaurer les packages
+dotnet restore
+
+# Exécuter l'application
+dotnet run
+```
+
+### 💡 Conseils
+
+- **Coûts** : Commencez avec GPT-4o mini pour minimiser les coûts pendant le développement
+- **Limites** : Configurez des quotas pour éviter les surprises
+- **Monitoring** : Activez Application Insights pour suivre l'utilisation
+- **Sécurité** : En production, utilisez Managed Identity au lieu d'Azure CLI Credential
+
+### 🔗 Ressources utiles
+
+- [Documentation Azure AI Foundry](https://learn.microsoft.com/azure/ai-studio/)
+- [Déployer des modèles](https://learn.microsoft.com/azure/ai-studio/how-to/deploy-models)
+- [Gérer les quotas](https://learn.microsoft.com/azure/ai-services/openai/how-to/quota)
+- [Tarification Azure OpenAI](https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/)
+
 ---
 
 ## 🏗️ Les 4 Piliers du Microsoft Agent Framework
