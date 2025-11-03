@@ -72,20 +72,27 @@ Les exemples de code sont disponibles dans le dossier [`src/`](src/).
 
 ```
 src/
-├── 01-hello-world/     Premier agent simple avec Azure OpenAI
-└── (autres démos à venir)
+├── 01-hello-world/                      🧠 PLAN - Premier agent simple
+├── 02-vision-llm/                       🧠 PLAN - Agent multimodal (vision)
+├── 03-multi-turn-agent/                 💾 CHECK - Conversation avec mémoire (thread)
+├── 04-use-tool/                         🛠️ DO - Agent avec outils (functions)
+└── 05-use-tool-with-human-interaction/  🎭 AGENT - Approbation humaine
 ```
 
-#### 01-hello-world
+---
+
+#### 01-hello-world 🧠
+
+**Pilier** : PLAN - Le Raisonnement
 
 **Description** : Premier agent simple utilisant Azure OpenAI et Microsoft Agent Framework
 
-**Contenu** :
+**Ce que vous apprenez** :
 - Connexion à Azure OpenAI avec `AzureCliCredential`
 - Création d'un agent simple avec instructions personnalisées
-- Exemple d'utilisation du modèle `mistral-medium-2505`
+- Exécution d'une requête basique
 
-**Code** :
+**Code clé** :
 ```csharp
 AIAgent agent = new AzureOpenAIClient(
     new Uri("https://devday-2025-maf.openai.azure.com/"),
@@ -98,10 +105,180 @@ AIAgent agent = new AzureOpenAIClient(
 Console.WriteLine(await agent.RunAsync("Raconte-moi une blague sur un pirate."));
 ```
 
-**Packages requis** :
-- `Azure.AI.OpenAI` (v2.5.0-beta.1)
-- `Azure.Identity` (v1.17.0)
-- `Microsoft.Agents.AI.OpenAI` (v1.0.0-preview.251028.1)
+**Concepts** : Agent basique, Instructions, Single-turn conversation
+
+---
+
+#### 02-vision-llm 🧠
+
+**Pilier** : PLAN - Raisonnement Multimodal
+
+**Description** : Agent capable d'analyser des images en plus du texte
+
+**Ce que vous apprenez** :
+- Utilisation de modèles multimodaux (GPT-4o)
+- Combinaison de texte et d'images dans un message
+- Types de contenu : `TextContent` et `UriContent`
+
+**Code clé** :
+```csharp
+AIAgent agent = new AzureOpenAIClient(...)
+    .GetChatClient("gpt-4o")
+    .CreateAIAgent(
+        name: "VisionAgent",
+        instructions: "Vous êtes un agent utile capable d'analyser des images.");
+
+ChatMessage message = new(ChatRole.User, [
+    new TextContent("Que voyez-vous dans cette image ?"),
+    new UriContent("https://devday.be/assets/gallery-12.jpg", "image/jpeg")
+]);
+
+Console.WriteLine(await agent.RunAsync(message));
+```
+
+**Concepts** : Multimodal LLM, ChatMessage, ChatRole (User/Assistant/System/Tool)
+
+---
+
+#### 03-multi-turn-agent 💾
+
+**Pilier** : CHECK - Mémoire Court Terme
+
+**Description** : Agent capable de maintenir le contexte d'une conversation sur plusieurs tours
+
+**Ce que vous apprenez** :
+- Utilisation d'`AgentThread` pour maintenir le contexte
+- Conversations multi-tours
+- Références aux messages précédents
+
+**Code clé** :
+```csharp
+AIAgent agent = new AzureOpenAIClient(...)
+    .GetChatClient("gpt-4o")
+    .CreateAIAgent(
+        instructions: "Tu es doué pour raconter des blagues sarcastiques.", 
+        name: "Joker");
+
+AgentThread thread = agent.GetNewThread();
+
+// Premier message
+Console.WriteLine(await agent.RunAsync(
+    "Raconte une blague au sujet des pirates.", thread));
+
+// Deuxième message - l'agent se souvient de la blague précédente
+Console.WriteLine(await agent.RunAsync(
+    "Maintenant, ajoute des émojis et raconte-la avec la voix d'un perroquet.", 
+    thread));
+```
+
+**Concepts** : AgentThread, Mémoire conversationnelle, Contexte persistant
+
+---
+
+#### 04-use-tool 🛠️
+
+**Pilier** : DO - Actions avec Tools
+
+**Description** : Agent capable d'utiliser des outils (functions) pour accéder à des données externes
+
+**Ce que vous apprenez** :
+- Définition de fonctions avec attributs `[Description]`
+- Création d'outils avec `AIFunctionFactory`
+- Function calling automatique par l'agent
+
+**Code clé** :
+```csharp
+// Définition de la fonction outil
+public class SpeakerTools
+{
+    [Description("Gets speaker information by last name.")]
+    public static SpeakerInfo GetSpeakerByName(
+        [Description("The last name of the speaker to retrieve.")] 
+        string speakerLastName)
+    {
+        // Recherche dans la base de données des speakers
+        return speakers.First(s => s.LastName == speakerLastName);
+    }
+}
+
+// Création de l'agent avec l'outil
+AIAgent agent = new AzureOpenAIClient(...)
+    .GetChatClient("gpt-4o")
+    .CreateAIAgent(
+        instructions: "Tu es un assistant utile qui fournit des informations sur les intervenants de DevDay 2025.",
+        tools: [AIFunctionFactory.Create(SpeakerTools.GetSpeakerByName)]);
+
+Console.WriteLine(await agent.RunAsync(
+    "Quelle session Adrien Clerbois présente-t-il ?"));
+```
+
+**Concepts** : Tools/Functions, Function Calling, Descriptions pour le LLM, `AIFunctionFactory`
+
+---
+
+#### 05-use-tool-with-human-interaction 🎭
+
+**Pilier** : AGENT - Orchestration et Contrôle
+
+**Description** : Agent qui demande une approbation humaine avant d'exécuter certaines fonctions sensibles
+
+**Ce que vous apprenez** :
+- Wrapping d'outils avec `ApprovalRequiredAIFunction`
+- Interception des demandes d'exécution
+- Workflow humain-dans-la-boucle (human-in-the-loop)
+- Gestion des réponses d'approbation
+
+**Code clé** :
+```csharp
+// Créer une fonction qui nécessite une approbation
+AIFunction getSpeakerFunction = AIFunctionFactory.Create(SpeakerTools.GetSpeakerByName);
+AIFunction approvalRequiredFunction = new ApprovalRequiredAIFunction(getSpeakerFunction);
+
+AIAgent agent = new AzureOpenAIClient(...)
+    .GetChatClient("gpt-4o")
+    .CreateAIAgent(
+        instructions: "Tu es un assistant utile...",
+        tools: [approvalRequiredFunction]);
+
+// Exécuter et intercepter les demandes d'approbation
+AgentThread thread = agent.GetNewThread();
+AgentRunResponse response = await agent.RunAsync(
+    "Quelle session Adrien Clerbois présente-t-il ?", thread);
+
+var functionApprovalRequests = response.Messages
+    .SelectMany(x => x.Contents)
+    .OfType<FunctionApprovalRequestContent>()
+    .ToList();
+
+// Demander l'approbation à l'utilisateur
+FunctionApprovalRequestContent requestContent = functionApprovalRequests.First();
+Console.WriteLine($"Approbation requise pour '{requestContent.FunctionCall.Name}'");
+
+// Approuver et continuer
+var approvalMessage = new ChatMessage(ChatRole.User, 
+    [requestContent.CreateResponse(true)]);
+Console.WriteLine(await agent.RunAsync(approvalMessage, thread));
+```
+
+**Concepts** : Human-in-the-loop, Guardrails, `FunctionApprovalRequestContent`, Sécurité
+
+---
+
+### 🎯 Parcours d'apprentissage recommandé
+
+1. **01-hello-world** → Comprendre les bases
+2. **02-vision-llm** → Explorer les capacités multimodales
+3. **03-multi-turn-agent** → Gérer la mémoire conversationnelle
+4. **04-use-tool** → Connecter l'agent au monde réel
+5. **05-use-tool-with-human-interaction** → Ajouter des guardrails
+
+### 📦 Packages requis (communs à toutes les démos)
+
+```xml
+<PackageReference Include="Azure.AI.OpenAI" Version="2.5.0-beta.1" />
+<PackageReference Include="Azure.Identity" Version="1.17.0" />
+<PackageReference Include="Microsoft.Agents.AI.OpenAI" Version="1.0.0-preview.251028.1" />
+```
 
 ---
 
