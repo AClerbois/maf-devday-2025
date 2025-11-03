@@ -266,6 +266,80 @@ Console.WriteLine(await agent.RunAsync(approvalMessage, thread));
 
 ---
 
+#### 06-expose-mcp 🌐
+
+**Pilier** : EXPOSER - Serveur MCP
+
+**Description** : Agent exposé comme serveur MCP (Model Context Protocol) pour intégration avec des clients compatibles
+
+**Ce que vous apprenez** :
+- Création d'un serveur MCP avec `ModelContextProtocol.Server`
+- Conversion d'un agent en fonction MCP avec `AsAIFunction()`
+- Configuration du transport stdio pour communication inter-processus
+- Intégration avec l'écosystème MCP (Claude Desktop, etc.)
+
+**Code clé** :
+```csharp
+AIAgent agent = new AzureOpenAIClient(...)
+    .GetChatClient("gpt-4o")
+    .CreateAIAgent(
+        instructions: "Tu es un agent qui fourni le nom d'une bière belge...",
+        name: "BeerBot");
+
+// Créer un outil MCP à partir de l'agent
+McpServerTool tool = McpServerTool.Create(agent.AsAIFunction());
+
+// Configurer et démarrer le serveur MCP
+HostApplicationBuilder builder = Host.CreateEmptyApplicationBuilder(settings: null);
+builder.Services
+    .AddMcpServer()
+    .WithStdioServerTransport()
+    .WithTools([tool]);
+
+await builder.Build().RunAsync();
+```
+
+**Concepts** : Model Context Protocol (MCP), Serveur stdio, Interopérabilité, `AsAIFunction()`
+
+---
+
+#### 07-observability 📊
+
+**Pilier** : OBSERVER - OpenTelemetry et monitoring
+
+**Description** : Agent instrumenté avec OpenTelemetry pour tracer et monitorer les exécutions
+
+**Ce que vous apprenez** :
+- Intégration d'OpenTelemetry avec les agents
+- Configuration d'un TracerProvider avec exportation console
+- Utilisation de `UseOpenTelemetry()` sur un agent builder
+- Traçabilité des requêtes et réponses de l'agent
+
+**Code clé** :
+```csharp
+// Créer un TracerProvider qui exporte vers la console
+using var tracerProvider = Sdk.CreateTracerProviderBuilder()
+    .AddSource("agent-telemetry-source")
+    .AddConsoleExporter()
+    .Build();
+
+// Créer l'agent avec instrumentation OpenTelemetry
+AIAgent agent = new AzureOpenAIClient(...)
+    .GetChatClient("gpt-4o")
+    .CreateAIAgent(
+        instructions: "Tu es un agent qui fourni le nom d'une bière...",
+        name: "BeerBot")
+    .AsBuilder()
+    .UseOpenTelemetry(sourceName: "agent-telemetry-source")
+    .Build();
+
+Console.WriteLine(await agent.RunAsync("Donnes une bière de Seattle."));
+```
+
+**Concepts** : OpenTelemetry, Tracing distribué, Observabilité, Agent Builder pattern
+
+---
+
 ### 🎯 Parcours d'apprentissage recommandé
 
 1. **01-hello-world** → Comprendre les bases
@@ -273,6 +347,8 @@ Console.WriteLine(await agent.RunAsync(approvalMessage, thread));
 3. **03-multi-turn-agent** → Gérer la mémoire conversationnelle
 4. **04-use-tool** → Connecter l'agent au monde réel
 5. **05-use-tool-with-human-interaction** → Ajouter des guardrails
+6. **06-expose-mcp** → Exposer l'agent via Model Context Protocol
+7. **07-observability** → Ajouter de l'observabilité avec OpenTelemetry
 
 ### 📦 Packages requis (communs à toutes les démos)
 
