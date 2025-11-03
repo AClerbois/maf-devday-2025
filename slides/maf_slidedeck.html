@@ -1289,20 +1289,25 @@ var response = await workflow.RunAsync(thread, userMessage);</div>
         });
 
         // Throttle mousemove event for better performance
-        let mouseMoveTimeout;
+        let lastCheckTime = 0;
+        const throttleDelay = 50; // 50ms throttle for smooth response
+        
         document.addEventListener('mousemove', (e) => {
-            if (mouseMoveTimeout) return;
+            const now = Date.now();
+            if (now - lastCheckTime < throttleDelay) return;
             
-            mouseMoveTimeout = setTimeout(() => {
-                mouseMoveTimeout = null;
-                
-                // Check if cursor is in the bottom-right area
-                if (e.clientY > bottomThreshold && e.clientX > rightThreshold) {
-                    navigation.classList.add('visible');
-                } else {
-                    navigation.classList.remove('visible');
-                }
-            }, 50); // 50ms throttle for smooth response
+            lastCheckTime = now;
+            
+            // Capture event coordinates before any async operations
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            
+            // Check if cursor is in the bottom-right area
+            if (mouseY > bottomThreshold && mouseX > rightThreshold) {
+                navigation.classList.add('visible');
+            } else {
+                navigation.classList.remove('visible');
+            }
         });
 
         function showSlide(n) {
