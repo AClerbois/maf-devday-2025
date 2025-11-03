@@ -1275,40 +1275,45 @@ var response = await workflow.RunAsync(thread, userMessage);</div>
         const totalSlides = slides.length;
         const navigation = document.querySelector('.navigation');
 
-        // Cache window dimensions and update on resize
-        let windowWidth = window.innerWidth;
-        let windowHeight = window.innerHeight;
-        let bottomThreshold = windowHeight * 0.75;
-        let rightThreshold = windowWidth * 0.75;
+        // Only set up hover behavior if navigation element exists
+        if (navigation) {
+            // Cache window dimensions and update on resize
+            let windowWidth = window.innerWidth;
+            let windowHeight = window.innerHeight;
+            let bottomThreshold = windowHeight * 0.75;
+            let rightThreshold = windowWidth * 0.75;
 
-        window.addEventListener('resize', () => {
-            windowWidth = window.innerWidth;
-            windowHeight = window.innerHeight;
-            bottomThreshold = windowHeight * 0.75;
-            rightThreshold = windowWidth * 0.75;
-        });
+            window.addEventListener('resize', () => {
+                windowWidth = window.innerWidth;
+                windowHeight = window.innerHeight;
+                bottomThreshold = windowHeight * 0.75;
+                rightThreshold = windowWidth * 0.75;
+            });
 
-        // Throttle mousemove event for better performance
-        let lastCheckTime = 0;
-        const throttleDelay = 50; // 50ms throttle for smooth response
-        
-        document.addEventListener('mousemove', (e) => {
-            const now = Date.now();
-            if (now - lastCheckTime < throttleDelay) return;
+            // Throttle mousemove event for better performance
+            // 50ms provides a good balance: responsive enough for smooth UX (~20 checks/sec)
+            // while reducing CPU usage compared to uncapped mousemove events (~100+ events/sec)
+            let lastCheckTime = 0;
+            const throttleDelay = 50;
             
-            lastCheckTime = now;
-            
-            // Capture event coordinates before any async operations
-            const mouseX = e.clientX;
-            const mouseY = e.clientY;
-            
-            // Check if cursor is in the bottom-right area
-            if (mouseY > bottomThreshold && mouseX > rightThreshold) {
-                navigation.classList.add('visible');
-            } else {
-                navigation.classList.remove('visible');
-            }
-        });
+            document.addEventListener('mousemove', (e) => {
+                const now = Date.now();
+                if (now - lastCheckTime < throttleDelay) return;
+                
+                lastCheckTime = now;
+                
+                // Capture event coordinates before any async operations
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+                
+                // Check if cursor is in the bottom-right area
+                if (mouseY > bottomThreshold && mouseX > rightThreshold) {
+                    navigation.classList.add('visible');
+                } else {
+                    navigation.classList.remove('visible');
+                }
+            });
+        }
 
         function showSlide(n) {
             slides[currentSlide].classList.remove('active');
