@@ -208,6 +208,14 @@
             display: flex;
             gap: 20px;
             z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            pointer-events: none;
+        }
+
+        .navigation.visible {
+            opacity: 1;
+            pointer-events: auto;
         }
 
         button {
@@ -1265,6 +1273,24 @@ var response = await workflow.RunAsync(thread, userMessage);</div>
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
         const totalSlides = slides.length;
+        const navigation = document.querySelector('.navigation');
+
+        // Detect cursor position for showing/hiding navigation buttons
+        document.addEventListener('mousemove', (e) => {
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            
+            // Define the bottom-right area (e.g., bottom 25% and right 25% of the screen)
+            const bottomThreshold = windowHeight * 0.75;
+            const rightThreshold = windowWidth * 0.75;
+            
+            // Check if cursor is in the bottom-right area
+            if (e.clientY > bottomThreshold && e.clientX > rightThreshold) {
+                navigation.classList.add('visible');
+            } else {
+                navigation.classList.remove('visible');
+            }
+        });
 
         function showSlide(n) {
             slides[currentSlide].classList.remove('active');
