@@ -76,7 +76,9 @@ src/
 ├── 02-vision-llm/                       🧠 PLAN - Agent multimodal (vision)
 ├── 03-multi-turn-agent/                 💾 CHECK - Conversation avec mémoire (thread)
 ├── 04-use-tool/                         🛠️ DO - Agent avec outils (functions)
-└── 05-use-tool-with-human-interaction/  🎭 AGENT - Approbation humaine
+├── 05-use-tool-with-human-interaction/  🎭 AGENT - Approbation humaine
+├── 06-expose-mcp/                       🌐 EXPOSER - Serveur MCP (Model Context Protocol)
+└── 07-observability/                    📊 OBSERVER - OpenTelemetry et monitoring
 ```
 
 ---
