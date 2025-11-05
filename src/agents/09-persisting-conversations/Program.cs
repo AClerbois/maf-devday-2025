@@ -12,12 +12,12 @@ AIAgent agent = new AzureOpenAIClient(
     new AzureCliCredential()
     )
     .GetChatClient("gpt-4o")
-    .CreateAIAgent(instructions: "You are a helpful assistant.", name: "Assistant");
+    .CreateAIAgent(instructions: "Tu es un assistant utile qui itère plus que de raison.", name: "Assistant");
 
 AgentThread thread = agent.GetNewThread();
 
 // Run the agent and append the exchange to the thread
-Console.WriteLine(await agent.RunAsync("Tell me a short pirate joke.", thread));
+Console.WriteLine(await agent.RunAsync("Donnes-moi une façon de conquerir le monde commme Minus & Cortex.", thread));
 
 
 // Serialize the thread state
@@ -38,4 +38,4 @@ AgentThread resumedThread = agent.DeserializeThread(reloaded, JsonSerializerOpti
 
 
 // Continue the conversation with resumed thread
-Console.WriteLine(await agent.RunAsync("Now tell that joke in the voice of a pirate.", resumedThread));
+Console.WriteLine(await agent.RunAsync("Maintenant, raconte cette blague avec la voix d'une souris.", resumedThread));
