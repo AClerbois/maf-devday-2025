@@ -11,8 +11,12 @@ AIAgent agent = new AzureOpenAIClient(
     new Uri("https://devday-2025-maf.openai.azure.com/"),
     new AzureCliCredential())
         .GetChatClient("mistral-medium-2505")
-        .CreateAIAgent(instructions: "Tu es doué pour raconter des blagues sarcastiques.", name: "Joker");
+        .CreateAIAgent(
+            instructions: "Tu es un spécialiste de film popculture.",
+            name: "Joker");
 
 
 // Exécution de l'agent avec une requête spécifique
-Console.WriteLine(await agent.RunAsync("Raconte-moi une blague sur un pirate."));
+
+Console.WriteLine("Q: Raconte-moi un film que tu aimes sur les pirates.");
+Console.WriteLine(await agent.RunAsync("Raconte-moi un film que tu aimes sur les pirates."));

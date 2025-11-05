@@ -30,4 +30,6 @@ ChatMessage message = new(ChatRole.User, [
 
 
 // Exécution de l'agent avec le message combiné
+
+System.Console.WriteLine("Q: Que voyez-vous dans cette image ?  (avec une image)");
 Console.WriteLine(await agent.RunAsync(message));

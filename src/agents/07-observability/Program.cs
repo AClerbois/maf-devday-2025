@@ -1,11 +1,12 @@
 ﻿using System;
 using OpenTelemetry;
 using OpenTelemetry.Trace;
-using System;
 using Azure.AI.OpenAI;
 using Azure.Identity;
 using Microsoft.Agents.AI;
 using OpenAI;
+using OpenTelemetry;
+using OpenTelemetry.Trace;
 
 
 // Create a TracerProvider that exports to the console

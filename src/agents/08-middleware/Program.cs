@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 
 Console.WriteLine("--- Agent Middleware Example ---");
 
-[Description("The current datetime offset.")]
+[Description("L'heure actuelle en Belgique.")]
 static string GetDateTime()
-    => DateTimeOffset.Now.ToString();
+    => DateTime.Now.ToString();
 
 AIAgent baseAgent = new AzureOpenAIClient(
     new Uri("https://devday-2025-maf.openai.azure.com/"),
