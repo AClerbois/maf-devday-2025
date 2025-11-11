@@ -1,0 +1,31 @@
+
+<!-- Slide 15: AGENT - Introduction -->
+<div class="slide">
+    <div class="devday-header">
+        <span class="devday-logo">DEVDAY 2025</span>
+    </div>
+    <h2>AGENT — L'Orchestration avec Workflows <span class="emoji">🎭</span></h2>
+
+    <div class="box info">
+        <p style="font-size: 1.5em;">Un agent seul est puissant. Plusieurs agents orchestrés sont <span
+                class="highlight">exponentiellement plus capables</span>.</p>
+    </div>
+
+    <h3 style="margin-top: 40px;">Le pattern clé du MAF : AgentWorkflow</h3>
+    <ul>
+        <li><strong>Architecture à base de graphes</strong>
+            <ul>
+                <li>Nœuds = agents ou étapes</li>
+                <li>Edges = transitions conditionnelles</li>
+                <li>Exécution parallèle ou séquentielle</li>
+            </ul>
+        </li>
+        <li><strong>Checkpointing :</strong> Sauvegarder l'état pour reprendre plus tard</li>
+        <li><strong>Routage dynamique :</strong> Décisions basées sur les résultats</li>
+    </ul>
+
+    <div class="diagram" style="margin-top: 40px;">
+        User Input <span class="arrow">→</span> Agent A <span class="arrow">⤴</span> Agent B<br>
+        <span class="arrow">⤷</span> Agent C <span class="arrow">→</span> Final Response
+    </div>
+</div>

@@ -1,0 +1,31 @@
+<!-- Slide 5: PLAN - Introduction -->
+<div class="slide">
+    <div class="devday-header">
+        <span class="devday-logo">DEVDAY 2025</span>
+    </div>
+    <h2>PLAN — Le Raisonnement de l'Agent <span class="emoji">🧠</span></h2>
+
+    <div class="diagram">
+        User Query <span class="arrow">→</span> <span class="highlight">Chat Completions</span> <span
+            class="arrow">→</span> Task Decomposition <span class="arrow">→</span> Action Plan
+    </div>
+
+    <h3>Architecture du raisonnement dans MAF</h3>
+    <ul>
+        <li><strong>Le cœur :</strong> <code>IChatClient</code> de Microsoft.Extensions.AI</li>
+        <li><strong>Stratégies de reasoning :</strong>
+            <ul>
+                <li>ReAct (Reasoning + Acting)</li>
+                <li>Chain-of-Thought (raisonnement étape par étape)</li>
+                <li>Function Calling (délégation aux tools)</li>
+            </ul>
+        </li>
+        <li><strong>Guidage via :</strong> System prompts & Instructions</li>
+        <li><strong>Rôle du LLM :</strong> Décomposer les tâches complexes en étapes réalisables</li>
+    </ul>
+
+    <div class="box" style="margin-top: 40px;">
+        <p><strong>Concept clé :</strong> La <span class="highlight">persona</span> de l'agent définit son
+            comportement et ses capacités de raisonnement</p>
+    </div>
+</div>

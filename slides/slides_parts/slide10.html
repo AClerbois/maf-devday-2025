@@ -1,0 +1,43 @@
+
+
+<!-- Slide 10: DO - Piège #2 -->
+<div class="slide">
+    <div class="devday-header">
+        <span class="devday-logo">DEVDAY 2025</span>
+    </div>
+    <h2>DO — Piège #2 : Tools Mal Documentés <span class="emoji">⚠️</span></h2>
+
+    <div class="box warning">
+        <h3 style="color: #d62828; margin-top: 0;">❌ Description floue = Mauvais choix d'outil = Échecs
+            silencieux</h3>
+        <p>Le LLM ne peut pas "deviner" ce que fait votre fonction. Il se base uniquement sur le nom et la
+            description.</p>
+    </div>
+
+    <h3 style="margin-top: 40px;">Exemple : Mauvaise vs Bonne documentation</h3>
+    <div class="two-column">
+        <div class="box warning">
+            <h4>❌ Mauvais</h4>
+            <div class="code-block" style="font-size: 0.9em;">[KernelFunction]
+                [Description("Get data")]
+                public string GetData(string id)</div>
+            <p style="font-size: 0.9em; margin-top: 10px;">Trop vague, l'agent ne sait pas quand l'utiliser</p>
+        </div>
+
+        <div class="box success">
+            <h4>✅ Bon</h4>
+            <div class="code-block" style="font-size: 0.9em;">[KernelFunction]
+                [Description("Récupère les détails d'une commande client par son ID. Retourne status, items,
+                total.")]
+                public OrderDetails GetOrder(
+                [Description("ID numérique de la commande")]
+                string orderId)</div>
+            <p style="font-size: 0.9em; margin-top: 10px;">Clair, précis, le LLM sait exactement quoi faire</p>
+        </div>
+    </div>
+
+    <div class="box" style="margin-top: 30px;">
+        <p><strong>Best practice :</strong> Testez vos tools isolément avant de les donner à l'agent. Validez
+            qu'ils retournent des données exploitables.</p>
+    </div>
+</div>

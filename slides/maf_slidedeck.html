@@ -10,945 +10,8 @@
 
 <body>
     <div class="slide-container">
-        <!-- Slide 1: Titre -->
-        <div class="slide active">
-            <div class="bushido-mark">武士道</div>
-            <div class="devday-header">
-                <span class="devday-logo">DEVDAY 2025</span>
-                <span class="bushido-accent">Bushidō Code</span>
-            </div>
-            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
-                <h1 class="center">Plan, Do, Check… <span class="highlight">Agent</span> !</h1>
-                <p class="center subtitle">Construire des agents avec Microsoft Agent Framework</p>
-                <p class="center honor-quote" style="margin-top: 60px; border: none; font-size: 1.8em;">
-                    Code avec honneur, debug avec courage
-                </p>
-                <p class="center" style="margin-top: 50px; font-size: 1.3em; color: #555;">
-                    Adrien Clerbois | Microsoft MVP<br>
-                    45 minutes | Niveau Intermédiaire | .NET
-                </p>
-                <p class="center" style="margin-top: 30px; font-size: 1.1em; color: #95a5a6;">
-                    13 novembre 2025 | Palais des Congrès, Mons
-                </p>
-            </div>
-        </div>
 
-        <!-- Slide 2: Hook PDCA -->
-        <div class="slide">
-            <div class="devday-header">
-                <span class="devday-logo">DEVDAY 2025</span>
-            </div>
-            <h2>Du PDCA au PDCA... Agent ! <span class="emoji">🔄</span></h2>
 
-            <div class="two-column">
-                <div>
-                    <h3>Le cycle de Deming (PDCA)</h3>
-                    <ul>
-                        <li><strong>Plan</strong> : Planifier l'action</li>
-                        <li><strong>Do</strong> : Exécuter le plan</li>
-                        <li><strong>Check</strong> : Vérifier les résultats</li>
-                        <li><strong>Act</strong> : Ajuster et améliorer</li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3>Architecture d'un Agent</h3>
-                    <ul>
-                        <li><strong>Plan</strong> : Raisonner sur la tâche</li>
-                        <li><strong>Do</strong> : Agir via des outils</li>
-                        <li><strong>Check</strong> : Mémoriser et apprendre</li>
-                        <li><strong>Agent</strong> : Orchestrer le tout</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="box" style="margin-top: 40px;">
-                <p><strong>Promesse</strong> : Comprendre l'architecture d'un agent intelligent par le prisme du cycle
-                    PDCA — avec <span class="highlight">discipline</span> et <span class="highlight">honneur</span></p>
-            </div>
-        </div>
-
-        <!-- Slide 3: Qu'est-ce qu'un agent ? -->
-        <div class="slide">
-            <div class="devday-header">
-                <span class="devday-logo">DEVDAY 2025</span>
-            </div>
-            <h2>Qu'est-ce qu'un Agent ? <span class="emoji">🤖</span></h2>
-
-            <div class="box info">
-                <p style="font-size: 1.6em;"><strong>Définition :</strong> Système autonome qui <span
-                        class="highlight">perçoit</span> son environnement, <span class="highlight">raisonne</span>,
-                    puis <span class="highlight">agit</span></p>
-            </div>
-
-            <h3 style="margin-top: 40px;">Les 4 caractéristiques d'un agent</h3>
-            <div class="grid-2x2">
-                <div class="card">
-                    <h4>Autonomie</h4>
-                    <p>Agit sans intervention humaine constante</p>
-                </div>
-                <div class="card">
-                    <h4>Réactivité</h4>
-                    <p>Répond aux changements de l'environnement</p>
-                </div>
-                <div class="card">
-                    <h4>Proactivité</h4>
-                    <p>Prend des initiatives pour atteindre ses objectifs</p>
-                </div>
-                <div class="card">
-                    <h4>Sociabilité</h4>
-                    <p>Interagit avec d'autres agents et systèmes</p>
-                </div>
-            </div>
-
-            <div class="diagram" style="margin-top: 40px;">
-                Environment <span class="arrow">→</span> Perceive <span class="arrow">→</span> Think <span
-                    class="arrow">→</span> Act <span class="arrow">→</span> Environment
-            </div>
-
-            <div class="box" style="margin-top: 30px;">
-                <p><strong>Chatbot vs Agent :</strong> Un chatbot répond. Un agent <em>agit</em> dans une boucle
-                    perception-action.</p>
-            </div>
-        </div>
-
-        <!-- Slide 4: Pourquoi Microsoft Agent Framework ? -->
-        <div class="slide">
-            <div class="devday-header">
-                <span class="devday-logo">DEVDAY 2025</span>
-            </div>
-            <h2>Pourquoi Microsoft Agent Framework ? <span class="emoji">🚀</span></h2>
-
-            <h3>La fusion de deux mondes</h3>
-            <div class="two-column">
-                <div class="box">
-                    <h4>Semantic Kernel</h4>
-                    <p>✅ Robustesse enterprise<br>
-                        ✅ Intégrations .NET<br>
-                        ✅ Observabilité built-in<br>
-                        ❌ Orchestration complexe</p>
-                </div>
-                <div class="box">
-                    <h4>AutoGen</h4>
-                    <p>✅ Patterns multi-agents simples<br>
-                        ✅ Workflows flexibles<br>
-                        ✅ Abstraction élégante<br>
-                        ❌ Moins de fonctionnalités enterprise</p>
-                </div>
-            </div>
-
-            <div class="box success" style="margin-top: 40px;">
-                <h3 style="color: #2a9d8f; margin-top: 0;">Microsoft Agent Framework = Le meilleur des deux <span
-                        class="badge">Oct 2024</span></h3>
-                <ul>
-                    <li>Abstractions simples d'AutoGen + fonctionnalités enterprise de SK</li>
-                    <li>Open source (GitHub) | .NET & Python</li>
-                    <li>Construit sur Microsoft.Extensions.AI</li>
-                    <li>Déploiement Azure AI Foundry</li>
-                </ul>
-            </div>
-
-            <p class="honor-quote" style="margin-top: 40px; text-align: center; font-size: 1.5em;">
-                <strong>Fil rouge :</strong> On va décliner Plan-Do-Check-Agent avec les composants du MAF
-            </p>
-        </div>
-
-        <!-- Slide 5: PLAN - Introduction -->
-        <div class="slide">
-            <div class="devday-header">
-                <span class="devday-logo">DEVDAY 2025</span>
-            </div>
-            <h2>PLAN — Le Raisonnement de l'Agent <span class="emoji">🧠</span></h2>
-
-            <div class="diagram">
-                User Query <span class="arrow">→</span> <span class="highlight">Chat Completions</span> <span
-                    class="arrow">→</span> Task Decomposition <span class="arrow">→</span> Action Plan
-            </div>
-
-            <h3>Architecture du raisonnement dans MAF</h3>
-            <ul>
-                <li><strong>Le cœur :</strong> <code>IChatClient</code> de Microsoft.Extensions.AI</li>
-                <li><strong>Stratégies de reasoning :</strong>
-                    <ul>
-                        <li>ReAct (Reasoning + Acting)</li>
-                        <li>Chain-of-Thought (raisonnement étape par étape)</li>
-                        <li>Function Calling (délégation aux tools)</li>
-                    </ul>
-                </li>
-                <li><strong>Guidage via :</strong> System prompts & Instructions</li>
-                <li><strong>Rôle du LLM :</strong> Décomposer les tâches complexes en étapes réalisables</li>
-            </ul>
-
-            <div class="box" style="margin-top: 40px;">
-                <p><strong>Concept clé :</strong> La <span class="highlight">persona</span> de l'agent définit son
-                    comportement et ses capacités de raisonnement</p>
-            </div>
-        </div>
-
-        <!-- Slide 6: PLAN - Code -->
-        <div class="slide">
-            <div class="devday-header">
-                <span class="devday-logo">DEVDAY 2025</span>
-            </div>
-            <h2>PLAN — Configuration d'un Agent</h2>
-
-            <div class="code-block">var agent = new ChatCompletionAgent(chatClient)
-                {
-                Instructions = @"Tu es un assistant spécialisé
-                en recherche technique.
-
-                Ton rôle :
-                - Analyser les questions techniques
-                - Décomposer en sous-problèmes
-                - Chercher dans la documentation
-                - Synthétiser clairement
-
-                Règles :
-                - Cite toujours tes sources
-                - Admets quand tu ne sais pas
-                - Reste concis",
-
-                Name = "ResearchAgent",
-                Description = "Agent de recherche technique"
-                };</div>
-
-            <h3 style="margin-top: 30px;">Points clés</h3>
-            <ul>
-                <li><strong>Instructions</strong> : Le "cerveau" de l'agent, définit sa logique de raisonnement</li>
-                <li><strong>Name</strong> : Identifier l'agent dans les workflows multi-agents</li>
-                <li><strong>Description</strong> : Aide d'autres agents à comprendre quand l'utiliser</li>
-            </ul>
-        </div>
-
-        <!-- Slide 7: PLAN - Piège #1 -->
-        <div class="slide">
-            <div class="devday-header">
-                <span class="devday-logo">DEVDAY 2025</span>
-            </div>
-            <h2>PLAN — Piège #1 : La Discipline du Plan <span class="emoji">⚠️</span></h2>
-
-            <div class="box warning">
-                <h3 style="color: #d62828; margin-top: 0;">❌ Donner trop de liberté = Hallucinations + Coûts explosifs
-                </h3>
-                <p>Un agent sans contraintes explore toutes les possibilités, dévie de l'objectif, et consomme des
-                    tokens inutilement</p>
-            </div>
-
-            <h3 style="margin-top: 40px;">Les Guardrails nécessaires</h3>
-            <div class="two-column">
-                <div class="box">
-                    <h4>Contraindre le raisonnement</h4>
-                    <ul style="margin-left: 20px; font-size: 1em;">
-                        <li>Limiter le scope des instructions</li>
-                        <li>Définir des domaines d'expertise clairs</li>
-                        <li>Interdire certains sujets/actions</li>
-                    </ul>
-                </div>
-
-                <div class="box">
-                    <h4>Contrôler l'exécution</h4>
-                    <ul style="margin-left: 20px; font-size: 1em;">
-                        <li>Budget de tokens pour le planning</li>
-                        <li>Valider les étapes avant exécution</li>
-                        <li>Timeout sur les raisonnements</li>
-                    </ul>
-                </div>
-            </div>
-
-            <p class="honor-quote" style="margin-top: 40px;">
-                <strong>Honneur du résultat :</strong> L'agent doit accomplir <em>sa mission</em>, pas explorer toutes
-                les possibilités. Guidez-le avec précision et discipline.
-            </p>
-        </div>
-
-        <!-- Slide 8: DO - Introduction -->
-        <div class="slide">
-            <div class="devday-header">
-                <span class="devday-logo">DEVDAY 2025</span>
-            </div>
-            <h2>DO — Les Actions de l'Agent <span class="emoji">🛠️</span></h2>
-
-            <div class="diagram">
-                Agent Decision <span class="arrow">→</span> <span class="highlight">Tool Selection</span> <span
-                    class="arrow">→</span> Execute Action <span class="arrow">→</span> Real World Impact
-            </div>
-
-            <h3>Tools : Connecter l'agent au monde réel</h3>
-            <p>Les <strong>Functions/Tools</strong> sont les <em>effecteurs</em> de l'agent — ses mains pour agir.</p>
-
-            <h3 style="margin-top: 40px;">Trois façons d'intégrer des outils dans MAF</h3>
-
-            <div class="grid-3">
-                <div class="card">
-                    <h4>Décorateurs .NET</h4>
-                    <p><code style="background: transparent; color: #ffcc00;">[KernelFunction]</code><br>sur vos
-                        méthodes C#</p>
-                </div>
-                <div class="card">
-                    <h4>Model Context Protocol</h4>
-                    <p>Standard ouvert MCP pour intégration d'outils</p>
-                </div>
-                <div class="card">
-                    <h4>OpenAPI</h4>
-                    <p>Connexion automatique aux APIs REST</p>
-                </div>
-            </div>
-
-            <div class="box" style="margin-top: 40px;">
-                <p><strong>Principe :</strong> Le LLM <em>choisit</em> quel tool utiliser en fonction des descriptions
-                    que vous fournissez</p>
-            </div>
-        </div>
-
-        <!-- Slide 9: DO - Code -->
-        <div class="slide">
-            <div class="devday-header">
-                <span class="devday-logo">DEVDAY 2025</span>
-            </div>
-            <h2>DO — Définir et Enregistrer un Tool</h2>
-
-            <div class="code-block">using Microsoft.SemanticKernel;
-
-                public class WeatherTools
-                {
-                [KernelFunction]
-                [Description("Récupère la météo actuelle pour une ville")]
-                public async Task&lt;string&gt; GetWeather(
-                [Description("Nom de la ville")] string city)
-                {
-                // Appel à une API météo
-                var weather = await _weatherApi.GetCurrentAsync(city);
-                return $"À {city}: {weather.Condition}, {weather.Temp}°C";
-                }
-
-                [KernelFunction]
-                [Description("Prévisions météo sur 7 jours")]
-                public async Task&lt;string&gt; GetForecast(string city)
-                {
-                var forecast = await _weatherApi.GetForecastAsync(city);
-                return FormatForecast(forecast);
-                }
-                }
-
-                // Enregistrer dans l'agent
-                var kernel = Kernel.CreateBuilder()
-                .AddAzureOpenAIChatCompletion(...)
-                .Build();
-
-                kernel.Plugins.AddFromObject(new WeatherTools());
-
-                var agent = new ChatCompletionAgent(chatClient)
-                {
-                Kernel = kernel
-                };</div>
-        </div>
-
-        <!-- Slide 10: DO - Piège #2 -->
-        <div class="slide">
-            <div class="devday-header">
-                <span class="devday-logo">DEVDAY 2025</span>
-            </div>
-            <h2>DO — Piège #2 : Tools Mal Documentés <span class="emoji">⚠️</span></h2>
-
-            <div class="box warning">
-                <h3 style="color: #d62828; margin-top: 0;">❌ Description floue = Mauvais choix d'outil = Échecs
-                    silencieux</h3>
-                <p>Le LLM ne peut pas "deviner" ce que fait votre fonction. Il se base uniquement sur le nom et la
-                    description.</p>
-            </div>
-
-            <h3 style="margin-top: 40px;">Exemple : Mauvaise vs Bonne documentation</h3>
-            <div class="two-column">
-                <div class="box warning">
-                    <h4>❌ Mauvais</h4>
-                    <div class="code-block" style="font-size: 0.9em;">[KernelFunction]
-                        [Description("Get data")]
-                        public string GetData(string id)</div>
-                    <p style="font-size: 0.9em; margin-top: 10px;">Trop vague, l'agent ne sait pas quand l'utiliser</p>
-                </div>
-
-                <div class="box success">
-                    <h4>✅ Bon</h4>
-                    <div class="code-block" style="font-size: 0.9em;">[KernelFunction]
-                        [Description("Récupère les détails d'une commande client par son ID. Retourne status, items,
-                        total.")]
-                        public OrderDetails GetOrder(
-                        [Description("ID numérique de la commande")]
-                        string orderId)</div>
-                    <p style="font-size: 0.9em; margin-top: 10px;">Clair, précis, le LLM sait exactement quoi faire</p>
-                </div>
-            </div>
-
-            <div class="box" style="margin-top: 30px;">
-                <p><strong>Best practice :</strong> Testez vos tools isolément avant de les donner à l'agent. Validez
-                    qu'ils retournent des données exploitables.</p>
-            </div>
-        </div>
-
-        <!-- Slide 11: CHECK - Introduction -->
-        <div class="slide">
-            <div class="devday-header">
-                <span class="devday-logo">DEVDAY 2025</span>
-            </div>
-            <h2>CHECK — La Mémoire et l'État <span class="emoji">💾</span></h2>
-
-            <div class="diagram">
-                Conversation <span class="arrow">→</span> <span class="highlight">AgentThread</span> (court terme) <span
-                    class="arrow">→</span> <span class="highlight">Memory</span> (long terme) <span
-                    class="arrow">→</span> Contexte Enrichi
-            </div>
-
-            <h3>Deux types de mémoire dans MAF</h3>
-            <div class="two-column">
-                <div class="box">
-                    <h4>AgentThread <span class="badge">Court terme</span></h4>
-                    <p>Historique de conversation de la session en cours</p>
-                    <ul style="margin-left: 20px; font-size: 1em; margin-top: 10px;">
-                        <li>Mémoire "volatile"</li>
-                        <li>Persiste entre invocations</li>
-                        <li>Gère l'état conversationnel</li>
-                    </ul>
-                </div>
-
-                <div class="box">
-                    <h4>Memory <span class="badge">Long terme</span></h4>
-                    <p>Base de connaissances vectorisée</p>
-                    <ul style="margin-left: 20px; font-size: 1em; margin-top: 10px;">
-                        <li>Stockage sémantique</li>
-                        <li>Rappel par similarité</li>
-                        <li>Évite l'explosion du contexte</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="box success" style="margin-top: 40px;">
-                <p><strong>Différence clé :</strong><br>
-                    • AgentThread = "je me souviens de ce qu'on vient de dire"<br>
-                    • Memory = "je me souviens de ce qui est pertinent pour ta question"</p>
-            </div>
-        </div>
-
-        <!-- Slide 12: CHECK - Memory Deep Dive -->
-        <div class="slide">
-            <div class="devday-header">
-                <span class="devday-logo">DEVDAY 2025</span>
-            </div>
-            <h2>CHECK — Le système Memory en détail</h2>
-
-            <h3>Le problème sans Memory</h3>
-            <div class="box warning">
-                <p>Sans Memory, tout va dans AgentThread → explosion des tokens → perte de contexte ancien → coûts
-                    incontrôlables</p>
-            </div>
-
-            <h3 style="margin-top: 40px;">Comment fonctionne Memory ?</h3>
-            <ol style="font-size: 1.4em;">
-                <li><strong>Vectorisation :</strong> Les faits/conversations importants sont convertis en embeddings
-                </li>
-                <li><strong>Stockage :</strong> Base vectorielle (Azure AI Search, Qdrant, etc.)</li>
-                <li><strong>Rappel sémantique :</strong> Seules les infos pertinentes sont injectées dans le contexte
-                </li>
-            </ol>
-
-            <div class="diagram" style="margin-top: 40px;">
-                Question utilisateur<br>
-                <span class="arrow">↓</span><br>
-                Recherche vectorielle dans Memory<br>
-                <span class="arrow">↓</span><br>
-                Top 5 faits pertinents ajoutés au contexte<br>
-                <span class="arrow">↓</span><br>
-                Agent raisonne avec contexte enrichi
-            </div>
-        </div>
-
-        <!-- Slide 13: CHECK - Code -->
-        <div class="slide">
-            <div class="devday-header">
-                <span class="devday-logo">DEVDAY 2025</span>
-            </div>
-            <h2>CHECK — AgentThread + Memory en Code</h2>
-
-            <div class="code-block">// Créer un thread (mémoire court terme)
-                var thread = new AgentThread();
-
-                // Configurer Memory (mémoire long terme)
-                var memory = new SemanticTextMemory(
-                storage: azureAISearchStore,
-                embeddingGenerator: embeddingModel
-                );
-
-                // L'agent utilise les deux
-                var agent = new ChatCompletionAgent(chatClient)
-                {
-                Instructions = "...",
-                Kernel = kernelWithMemory
-                };
-
-                // Sauvegarder un fait important dans Memory
-                await memory.SaveInformationAsync(
-                collection: "customer_history",
-                text: "Le client Jean préfère les livraisons le mardi",
-                id: "pref_jean_123"
-                );
-
-                // Plus tard, dans une nouvelle session...
-                var response = await agent.InvokeAsync(
-                thread,
-                "Quand Jean préfère-t-il être livré ?"
-                );
-                // L'agent rappellera automatiquement le fait depuis Memory</div>
-        </div>
-
-        <!-- Slide 14: CHECK - Piège #3 -->
-        <div class="slide">
-            <div class="devday-header">
-                <span class="devday-logo">DEVDAY 2025</span>
-            </div>
-            <h2>CHECK — Piège #3 : Ne Pas Gérer le Contexte <span class="emoji">⚠️</span></h2>
-
-            <div class="two-column">
-                <div class="box warning">
-                    <h4>❌ Sans Memory</h4>
-                    <p>Tout dans AgentThread<br>
-                        → Explosion tokens<br>
-                        → Perte infos anciennes<br>
-                        → Coûts incontrôlables</p>
-                </div>
-
-                <div class="box warning">
-                    <h4>❌ Sans AgentThread</h4>
-                    <p>L'agent oublie tout<br>
-                        → Pas de cohérence<br>
-                        → Répétitions<br>
-                        → Expérience frustrante</p>
-                </div>
-            </div>
-
-            <div class="box success" style="margin-top: 40px;">
-                <h3 style="color: #2a9d8f; margin-top: 0;">✅ Les deux ensemble</h3>
-                <ul>
-                    <li><strong>AgentThread</strong> pour cohérence conversationnelle immédiate (10 derniers messages)
-                    </li>
-                    <li><strong>Memory</strong> pour rappel sémantique des informations anciennes</li>
-                    <li><strong>Stratégie :</strong> Summariser régulièrement le thread et archiver dans Memory</li>
-                </ul>
-            </div>
-
-            <div class="diagram" style="margin-top: 40px;">
-                Message 1-10: AgentThread <span class="arrow">→</span> Summarize <span class="arrow">→</span> Memory<br>
-                Message 11-20: AgentThread <span class="arrow">→</span> Recall from Memory si pertinent
-            </div>
-        </div>
-
-        <!-- Slide 15: AGENT - Introduction -->
-        <div class="slide">
-            <div class="devday-header">
-                <span class="devday-logo">DEVDAY 2025</span>
-            </div>
-            <h2>AGENT — L'Orchestration avec Workflows <span class="emoji">🎭</span></h2>
-
-            <div class="box info">
-                <p style="font-size: 1.5em;">Un agent seul est puissant. Plusieurs agents orchestrés sont <span
-                        class="highlight">exponentiellement plus capables</span>.</p>
-            </div>
-
-            <h3 style="margin-top: 40px;">Le pattern clé du MAF : AgentWorkflow</h3>
-            <ul>
-                <li><strong>Architecture à base de graphes</strong>
-                    <ul>
-                        <li>Nœuds = agents ou étapes</li>
-                        <li>Edges = transitions conditionnelles</li>
-                        <li>Exécution parallèle ou séquentielle</li>
-                    </ul>
-                </li>
-                <li><strong>Checkpointing :</strong> Sauvegarder l'état pour reprendre plus tard</li>
-                <li><strong>Routage dynamique :</strong> Décisions basées sur les résultats</li>
-            </ul>
-
-            <div class="diagram" style="margin-top: 40px;">
-                User Input <span class="arrow">→</span> Agent A <span class="arrow">⤴</span> Agent B<br>
-                <span class="arrow">⤷</span> Agent C <span class="arrow">→</span> Final Response
-            </div>
-        </div>
-
-        <!-- Slide 16: AGENT - Patterns -->
-        <div class="slide">
-            <div class="devday-header">
-                <span class="devday-logo">DEVDAY 2025</span>
-            </div>
-            <h2>AGENT — Les Patterns d'Orchestration</h2>
-
-            <div class="grid-3">
-                <div class="card">
-                    <h4>Handoff</h4>
-                    <p>Relais entre agents spécialisés</p>
-                    <p style="font-size: 0.9em; margin-top: 10px;">Triage → Expert → Escalation</p>
-                </div>
-                <div class="card">
-                    <h4>Concurrent</h4>
-                    <p>Plusieurs agents en parallèle</p>
-                    <p style="font-size: 0.9em; margin-top: 10px;">Research + Analysis + Summary</p>
-                </div>
-                <div class="card">
-                    <h4>Conditional Routing</h4>
-                    <p>Routage dynamique selon résultats</p>
-                    <p style="font-size: 0.9em; margin-top: 10px;">if confidence > 0.8 → Auto<br>else → Human</p>
-                </div>
-            </div>
-
-            <h3 style="margin-top: 50px;">Exemple : Support Client Automatisé</h3>
-            <div class="diagram">
-                User Question<br>
-                <span class="arrow">↓</span><br>
-                <strong>TriageAgent</strong> (catégorise: technique/facturation/autre)<br>
-                <span class="arrow">⤴</span> technique → <strong>TechAgent</strong> (RAG sur docs)<br>
-                <span class="arrow">⤴</span> facturation → <strong>BillingAgent</strong> (accès DB)<br>
-                <span class="arrow">⤴</span> confidence < 0.7 → <strong>EscalationAgent</strong> (handoff humain)
-            </div>
-        </div>
-
-        <!-- Slide 17: AGENT - Code Workflow -->
-        <div class="slide">
-            <div class="devday-header">
-                <span class="devday-logo">DEVDAY 2025</span>
-            </div>
-            <h2>AGENT — Construire un Workflow Multi-Agents</h2>
-
-            <div class="code-block">// Définir les agents
-                var triageAgent = new ChatCompletionAgent(client)
-                {
-                Name = "Triage",
-                Instructions = "Catégorise les demandes: technical, billing, other"
-                };
-
-                var techAgent = new ChatCompletionAgent(client)
-                {
-                Name = "TechSupport",
-                Instructions = "Répond aux questions techniques",
-                Kernel = kernelWithRAG
-                };
-
-                var billingAgent = new ChatCompletionAgent(client)
-                {
-                Name = "Billing",
-                Instructions = "Gère les questions de facturation",
-                Kernel = kernelWithDatabase
-                };
-
-                // Construire le workflow
-                var workflow = new AgentWorkflowBuilder()
-                .AddAgent(triageAgent)
-                .AddTransition(
-                from: triageAgent,
-                to: techAgent,
-                condition: result => result.Category == "technical"
-                )
-                .AddTransition(
-                from: triageAgent,
-                to: billingAgent,
-                condition: result => result.Category == "billing"
-                )
-                .Build();
-
-                // Exécuter
-                var response = await workflow.RunAsync(thread, userMessage);</div>
-        </div>
-
-        <!-- Slide 18: AGENT - Piège #4 -->
-        <div class="slide">
-            <div class="devday-header">
-                <span class="devday-logo">DEVDAY 2025</span>
-            </div>
-            <h2>AGENT — Piège #4 : Sur-Orchestration <span class="emoji">⚠️</span></h2>
-
-            <div class="box warning">
-                <h3 style="color: #d62828; margin-top: 0;">❌ Trop d'agents = Complexité ingérable + Coûts explosifs</h3>
-                <p>Chaque agent ajouté multiplie les interactions, les points de défaillance, et la difficulté de debug
-                </p>
-            </div>
-
-            <h3 style="margin-top: 40px;">Principes de simplicité</h3>
-            <div class="two-column">
-                <div class="box">
-                    <h4>Commencer simple</h4>
-                    <ul style="margin-left: 20px; font-size: 1em;">
-                        <li>1 agent d'abord</li>
-                        <li>Ajouter un 2e seulement si nécessaire</li>
-                        <li>Maximum 3-5 agents par workflow</li>
-                    </ul>
-                </div>
-
-                <div class="box">
-                    <h4>Division responsabilités</h4>
-                    <ul style="margin-left: 20px; font-size: 1em;">
-                        <li>Un agent = une responsabilité claire</li>
-                        <li>Éviter les rôles qui se chevauchent</li>
-                        <li>Documenter le périmètre de chaque agent</li>
-                    </ul>
-                </div>
-            </div>
-
-            <p class="honor-quote" style="margin-top: 40px;">
-                <strong>Règle d'or :</strong> Si vous hésitez entre 1 agent polyvalent et 3 agents spécialisés,
-                commencez par 1. Divisez seulement quand la complexité le justifie.
-            </p>
-
-            <h3 style="margin-top: 40px;">Indicateurs qu'il faut diviser</h3>
-            <ul>
-                <li>L'agent échoue souvent par manque de contexte spécialisé</li>
-                <li>Les instructions dépassent 500 mots</li>
-                <li>Plusieurs domaines d'expertise incompatibles</li>
-            </ul>
-        </div>
-
-        <!-- Slide 19: Démo -->
-        <div class="slide">
-            <div class="devday-header">
-                <span class="devday-logo">DEVDAY 2025</span>
-            </div>
-            <h2>Démo Live <span class="emoji">🎬</span></h2>
-
-            <div class="box"
-                style="background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%); color: white; padding: 50px; border: 4px solid #e63946;">
-                <h3 style="color: #ffcc00; text-align: center; font-size: 2.5em; margin: 0;">Support Client Multi-Agents
-                </h3>
-                <p style="color: white; text-align: center; font-size: 1.5em; margin-top: 25px;">Architecture complète
-                    avec Triage → Experts → Escalation</p>
-            </div>
-
-            <h3 style="margin-top: 50px;">Ce que vous allez voir</h3>
-            <ol style="font-size: 1.4em;">
-                <li><strong>TriageAgent</strong> analyse la demande client</li>
-                <li>Routage conditionnel vers <strong>TechAgent</strong> ou <strong>BillingAgent</strong></li>
-                <li><strong>TechAgent</strong> utilise RAG sur la documentation</li>
-                <li><strong>BillingAgent</strong> accède à une base de données</li>
-                <li>Escalation automatique si confidence < 0.7</li>
-                <li>Observabilité : traces, logs, métriques</li>
-            </ol>
-
-            <div class="box info" style="margin-top: 40px;">
-                <p><strong>Technologies :</strong> MAF + Azure OpenAI + Azure AI Search (RAG) + Azure CosmosDB (state)
-                </p>
-            </div>
-        </div>
-
-        <!-- Slide 20: Récap PDCA -->
-        <div class="slide">
-            <div class="devday-header">
-                <span class="devday-logo">DEVDAY 2025</span>
-            </div>
-            <h2>Récap : Les 4 Piliers du MAF <span class="emoji">🏛️</span></h2>
-
-            <div class="two-column" style="gap: 50px; margin-top: 40px;">
-                <div class="card">
-                    <h4>🧠 PLAN</h4>
-                    <p style="margin-top: 20px;"><strong>Chat Completions</strong><br>+ Instructions</p>
-                    <p style="font-size: 1em; margin-top: 15px;">Le cerveau qui raisonne</p>
-                </div>
-                <div class="card">
-                    <h4>🛠️ DO</h4>
-                    <p style="margin-top: 20px;"><strong>Tools/Functions</strong><br>+ MCP</p>
-                    <p style="font-size: 1em; margin-top: 15px;">Les mains qui agissent</p>
-                </div>
-            </div>
-
-            <div class="two-column" style="gap: 50px; margin-top: 40px;">
-                <div class="card">
-                    <h4>💾 CHECK</h4>
-                    <p style="margin-top: 20px;"><strong>AgentThread + Memory</strong><br>+ Context Providers</p>
-                    <p style="font-size: 1em; margin-top: 15px;">La mémoire qui apprend</p>
-                </div>
-                <div class="card">
-                    <h4>🎭 AGENT</h4>
-                    <p style="margin-top: 20px;"><strong>Workflows</strong><br>+ Orchestration</p>
-                    <p style="font-size: 1em; margin-top: 15px;">La coordination qui optimise</p>
-                </div>
-            </div>
-
-            <div class="diagram" style="margin-top: 50px; font-size: 1.5em;">
-                <strong>PERCEIVE</strong> (Tools) <span class="arrow">→</span> <strong>THINK</strong> (Plan) <span
-                    class="arrow">→</span> <strong>REMEMBER</strong> (Check) <span class="arrow">→</span>
-                <strong>ACT</strong> (Agent)
-            </div>
-        </div>
-
-        <!-- Slide 21: Squelette & Best Practices -->
-        <div class="slide">
-            <div class="devday-header">
-                <span class="devday-logo">DEVDAY 2025</span>
-            </div>
-            <h2>Squelette Prêt à Étendre <span class="emoji">🏗️</span></h2>
-
-            <h3>Le workflow de développement</h3>
-            <ol style="font-size: 1.4em;">
-                <li><strong>Commencer simple :</strong> 1 agent, 2-3 tools, instructions claires</li>
-                <li><strong>Itérer progressivement :</strong>
-                    <ul style="margin-left: 40px; font-size: 0.95em;">
-                        <li>Ajouter Memory quand le contexte devient trop grand</li>
-                        <li>Ajouter des tools selon les besoins</li>
-                        <li>Diviser en multi-agents seulement si nécessaire</li>
-                    </ul>
-                </li>
-                <li><strong>Observer et mesurer :</strong> Azure AI Foundry pour telemetry
-                    <ul style="margin-left: 40px; font-size: 0.95em;">
-                        <li>Temps de réponse</li>
-                        <li>Coût par interaction</li>
-                        <li>Taux de succès</li>
-                    </ul>
-                </li>
-                <li><strong>Tester rigoureusement :</strong> Validation des tools, edge cases, fallbacks</li>
-            </ol>
-
-            <p class="honor-quote" style="margin-top: 50px; font-size: 1.6em;">
-                <strong>Discipline & Pragmatisme :</strong> La tentation est d'ajouter features. La discipline est de
-                rester simple jusqu'à ce que la complexité soit justifiée.
-            </p>
-        </div>
-
-        <!-- Slide 22: Les 4 Pièges -->
-        <div class="slide">
-            <div class="devday-header">
-                <span class="devday-logo">DEVDAY 2025</span>
-            </div>
-            <h2>Résumé des 4 Pièges à Éviter <span class="emoji">⚠️</span></h2>
-
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 40px;">
-                <div class="box warning">
-                    <h4>Piège #1 : Plan sans discipline</h4>
-                    <p style="font-size: 1.1em;">Trop de liberté = hallucinations + coûts</p>
-                    <p style="font-size: 1em; margin-top: 15px;"><strong>Solution :</strong> Guardrails, contraintes,
-                        budget tokens</p>
-                </div>
-
-                <div class="box warning">
-                    <h4>Piège #2 : Tools mal documentés</h4>
-                    <p style="font-size: 1.1em;">Descriptions floues = mauvais choix</p>
-                    <p style="font-size: 1em; margin-top: 15px;"><strong>Solution :</strong> Descriptions détaillées,
-                        tests isolés</p>
-                </div>
-
-                <div class="box warning">
-                    <h4>Piège #3 : Mémoire non gérée</h4>
-                    <p style="font-size: 1.1em;">Explosion du contexte = perte infos</p>
-                    <p style="font-size: 1em; margin-top: 15px;"><strong>Solution :</strong> AgentThread + Memory
-                        ensemble</p>
-                </div>
-
-                <div class="box warning">
-                    <h4>Piège #4 : Sur-orchestration</h4>
-                    <p style="font-size: 1.1em;">Trop d'agents = complexité ingérable</p>
-                    <p style="font-size: 1em; margin-top: 15px;"><strong>Solution :</strong> Commencer simple, diviser
-                        si justifié</p>
-                </div>
-            </div>
-
-            <p class="honor-quote" style="margin-top: 50px; text-align: center; font-size: 1.7em;">
-                <strong>Honneur du résultat :</strong> Un agent simple qui fonctionne > Un système complexe qui échoue
-            </p>
-        </div>
-
-        <!-- Slide 23: Ressources -->
-        <div class="slide">
-            <div class="devday-header">
-                <span class="devday-logo">DEVDAY 2025</span>
-            </div>
-            <h2>Ressources pour Aller Plus Loin <span class="emoji">📚</span></h2>
-
-            <h3>Documentation officielle</h3>
-            <ul style="font-size: 1.4em;">
-                <li><strong>Microsoft Agent Framework :</strong> docs.microsoft.com/azure/ai</li>
-                <li><strong>GitHub Semantic Kernel :</strong> github.com/microsoft/semantic-kernel</li>
-                <li><strong>Azure AI Foundry :</strong> ai.azure.com</li>
-            </ul>
-
-            <h3 style="margin-top: 50px;">Communauté & Support</h3>
-            <ul style="font-size: 1.4em;">
-                <li><strong>Discord Semantic Kernel :</strong> Discussions actives, Q&A</li>
-                <li><strong>Microsoft Learn :</strong> Modules de formation gratuits</li>
-                <li><strong>Samples GitHub :</strong> Exemples d'applications complètes</li>
-            </ul>
-
-            <h3 style="margin-top: 50px;">Pour démarrer aujourd'hui</h3>
-            <div class="box info">
-                <ol style="font-size: 1.2em; margin-left: 20px;">
-                    <li>Installer le SDK : <code>dotnet add package Microsoft.SemanticKernel</code></li>
-                    <li>Cloner un template de démarrage</li>
-                    <li>Configurer Azure OpenAI</li>
-                    <li>Construire votre premier agent en 10 minutes !</li>
-                </ol>
-            </div>
-        </div>
-
-        <!-- Slide 24: Conclusion -->
-        <div class="slide">
-            <div class="devday-header">
-                <span class="devday-logo">DEVDAY 2025</span>
-            </div>
-            <h2>Conclusion <span class="emoji">🎯</span></h2>
-
-            <div class="box"
-                style="background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%); color: white; padding: 50px; text-align: center; border: 4px solid #e63946;">
-                <h3 style="color: #ffcc00; font-size: 2.5em; margin-bottom: 25px;">Plan, Do, Check… Agent !</h3>
-                <p style="color: white; font-size: 1.5em; line-height: 1.8;">
-                    Vous avez maintenant les clés pour construire des agents intelligents avec le <strong>Microsoft
-                        Agent Framework</strong>
-                </p>
-            </div>
-
-            <h3 style="margin-top: 50px; text-align: center;">Ce que vous repartez avec</h3>
-            <div class="two-column" style="margin-top: 40px;">
-                <div class="box success">
-                    <h4>✅ Concepts maîtrisés</h4>
-                    <ul style="margin-left: 20px; font-size: 1.1em;">
-                        <li>Architecture d'un agent</li>
-                        <li>Les 4 piliers du MAF</li>
-                        <li>Patterns d'orchestration</li>
-                    </ul>
-                </div>
-
-                <div class="box success">
-                    <h4>✅ Pratiques terrain</h4>
-                    <ul style="margin-left: 20px; font-size: 1.1em;">
-                        <li>Pièges à éviter</li>
-                        <li>Best practices</li>
-                        <li>Code prêt à étendre</li>
-                    </ul>
-                </div>
-            </div>
-
-            <p class="honor-quote" style="margin-top: 60px; text-align: center; font-size: 2em; border: none;">
-                Code avec honneur, debug avec courage
-            </p>
-        </div>
-
-        <!-- Slide 25: Q&A -->
-        <div class="slide">
-            <div class="devday-header">
-                <span class="devday-logo">DEVDAY 2025</span>
-                <span class="bushido-accent">Bushidō Code</span>
-            </div>
-            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                <h1 style="font-size: 5em; text-align: center; color: #e63946;">Questions ?</h1>
-                <p style="margin-top: 60px; font-size: 2em; color: #555; text-align: center;">
-                    Merci pour votre attention !
-                </p>
-                <div style="margin-top: 80px; text-align: center; color: #2c3e50;">
-                    <p style="font-size: 1.5em;"><strong>Adrien Clerbois</strong></p>
-                    <p style="font-size: 1.3em; margin-top: 20px; color: #e63946;">Microsoft MVP</p>
-                    <div style="margin-top: 40px;">
-                        <p style="font-size: 1.3em; margin-top: 15px;">📧 <a
-                                href="https://adrien.social">adrien.social</a></p>
-                        <p style="font-size: 1.3em; margin-top: 15px;">🐙 <a
-                                href="https://github.com/aclerbois"></a>github.com/aclerbois</a></p>
-                        <p style="font-size: 1.3em; margin-top: 15px;">💼 <a
-                                href="https://linkedin.com/in/aclerbois">linkedin.com/in/aclerbois</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-info">
-                DevDay 2025 | 13 novembre 2025 | Mons, Belgium
-            </div>
-        </div>
     </div>
 
     <div class="navigation">
@@ -957,56 +20,95 @@
     </div>
 
     <script>
+        // Liste des fichiers de slides à charger
+        const slideFiles = [
+            "slides_parts/slide01.html", "slides_parts/slide02.html", "slides_parts/slide03.html", "slides_parts/slide04.html", "slides_parts/slide05.html",
+            "slides_parts/slide06.html", "slides_parts/slide07.html", "slides_parts/slide08.html", "slides_parts/slide09.html", "slides_parts/slide10.html",
+            "slides_parts/slide11.html", "slides_parts/slide12.html", "slides_parts/slide13.html", "slides_parts/slide14.html", "slides_parts/slide15.html",
+            "slides_parts/slide16.html", "slides_parts/slide17.html", "slides_parts/slide18.html", "slides_parts/slide19.html", "slides_parts/slide20.html",
+            "slides_parts/slide21.html", "slides_parts/slide22.html", "slides_parts/slide23.html", "slides_parts/slide24.html", "slides_parts/slide25.html"
+        ];
+
         let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const totalSlides = slides.length;
+        let slides = [];
+        let totalSlides = slideFiles.length;
         const navigation = document.querySelector('.navigation');
 
-        // Only set up hover behavior if navigation element exists
-        if (navigation) {
-            // Cache window dimensions and update on resize
-            let windowWidth = window.innerWidth;
-            let windowHeight = window.innerHeight;
-            let bottomThreshold = windowHeight * 0.75;
-            let rightThreshold = windowWidth * 0.75;
-
-            window.addEventListener('resize', () => {
-                windowWidth = window.innerWidth;
-                windowHeight = window.innerHeight;
-                bottomThreshold = windowHeight * 0.75;
-                rightThreshold = windowWidth * 0.75;
-            });
-
-            // Throttle mousemove event for better performance
-            // 50ms provides a good balance: responsive enough for smooth UX (~20 checks/sec)
-            // while reducing CPU usage compared to uncapped mousemove events (~100+ events/sec)
-            let lastCheckTime = 0;
-            const throttleDelay = 50;
-
-            document.addEventListener('mousemove', (e) => {
-                const now = Date.now();
-                if (now - lastCheckTime < throttleDelay) return;
-
-                lastCheckTime = now;
-
-                // Capture event coordinates before any async operations
-                const mouseX = e.clientX;
-                const mouseY = e.clientY;
-
-                // Check if cursor is in the bottom-right area
-                if (mouseY > bottomThreshold && mouseX > rightThreshold) {
-                    navigation.classList.add('visible');
-                } else {
-                    navigation.classList.remove('visible');
+        // Fonction pour charger tous les slides
+        async function loadSlides() {
+            const container = document.querySelector('.slide-container');
+            for (let i = 0; i < slideFiles.length; i++) {
+                try {
+                    const resp = await fetch(slideFiles[i]);
+                    const html = await resp.text();
+                    // Si le contenu contient déjà <div class="slide"> (même après commentaires ou espaces), on l'ajoute tel quel
+                    // Regex simple : ignore espaces/commentaires avant <div class="slide"
+                    const slideDivRegex = new RegExp('^([\\s\\n\\r]*|<!--.*?-->)*<div\\s+class=["\\\' ]slide["\\\']', 'i');
+                    if (slideDivRegex.test(html)) {
+                        container.insertAdjacentHTML('beforeend', html);
+                    } else {
+                        const slideDiv = document.createElement('div');
+                        slideDiv.className = 'slide';
+                        slideDiv.innerHTML = html;
+                        container.appendChild(slideDiv);
+                    }
+                } catch (e) {
+                    console.error('Erreur chargement', slideFiles[i], e);
                 }
+            }
+            slides = document.querySelectorAll('.slide');
+            totalSlides = slides.length;
+            // Retire toute classe active résiduelle
+            slides.forEach(slide => slide.classList.remove('active'));
+            console.log('Slides chargés:', slides.length);
+            showSlide(0);
+            setupNavigation();
+        }
+
+        function setupNavigation() {
+            // Navigation visible au survol bas-droite
+            if (navigation) {
+                let windowWidth = window.innerWidth;
+                let windowHeight = window.innerHeight;
+                let bottomThreshold = windowHeight * 0.75;
+                let rightThreshold = windowWidth * 0.75;
+
+                window.addEventListener('resize', () => {
+                    windowWidth = window.innerWidth;
+                    windowHeight = window.innerHeight;
+                    bottomThreshold = windowHeight * 0.75;
+                    rightThreshold = windowWidth * 0.75;
+                });
+
+                let lastCheckTime = 0;
+                const throttleDelay = 50;
+
+                document.addEventListener('mousemove', (e) => {
+                    const now = Date.now();
+                    if (now - lastCheckTime < throttleDelay) return;
+                    lastCheckTime = now;
+                    const mouseX = e.clientX;
+                    const mouseY = e.clientY;
+                    if (mouseY > bottomThreshold && mouseX > rightThreshold) {
+                        navigation.classList.add('visible');
+                    } else {
+                        navigation.classList.remove('visible');
+                    }
+                });
+            }
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft' && currentSlide > 0) changeSlide(-1);
+                if (e.key === 'ArrowRight' && currentSlide < totalSlides - 1) changeSlide(1);
             });
         }
 
         function showSlide(n) {
-            slides[currentSlide].classList.remove('active');
+            if (slides.length === 0) return;
+            // Retire la classe active à tous les slides
+            slides.forEach(slide => slide.classList.remove('active'));
             currentSlide = (n + totalSlides) % totalSlides;
             slides[currentSlide].classList.add('active');
-
             document.getElementById('prevBtn').disabled = currentSlide === 0;
             document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
         }
@@ -1015,12 +117,11 @@
             showSlide(currentSlide + direction);
         }
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft' && currentSlide > 0) changeSlide(-1);
-            if (e.key === 'ArrowRight' && currentSlide < totalSlides - 1) changeSlide(1);
-        });
+        // Expose les fonctions globalement pour les boutons
+        window.changeSlide = changeSlide;
 
-        showSlide(0);
+        // Charge les slides au chargement de la page
+        window.addEventListener('DOMContentLoaded', loadSlides);
     </script>
 </body>
 

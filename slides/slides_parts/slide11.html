@@ -1,0 +1,43 @@
+
+<!-- Slide 11: CHECK - Introduction -->
+<div class="slide">
+    <div class="devday-header">
+        <span class="devday-logo">DEVDAY 2025</span>
+    </div>
+    <h2>CHECK — La Mémoire et l'État <span class="emoji">💾</span></h2>
+
+    <div class="diagram">
+        Conversation <span class="arrow">→</span> <span class="highlight">AgentThread</span> (court terme) <span
+            class="arrow">→</span> <span class="highlight">Memory</span> (long terme) <span
+            class="arrow">→</span> Contexte Enrichi
+    </div>
+
+    <h3>Deux types de mémoire dans MAF</h3>
+    <div class="two-column">
+        <div class="box">
+            <h4>AgentThread <span class="badge">Court terme</span></h4>
+            <p>Historique de conversation de la session en cours</p>
+            <ul style="margin-left: 20px; font-size: 1em; margin-top: 10px;">
+                <li>Mémoire "volatile"</li>
+                <li>Persiste entre invocations</li>
+                <li>Gère l'état conversationnel</li>
+            </ul>
+        </div>
+
+        <div class="box">
+            <h4>Memory <span class="badge">Long terme</span></h4>
+            <p>Base de connaissances vectorisée</p>
+            <ul style="margin-left: 20px; font-size: 1em; margin-top: 10px;">
+                <li>Stockage sémantique</li>
+                <li>Rappel par similarité</li>
+                <li>Évite l'explosion du contexte</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="box success" style="margin-top: 40px;">
+        <p><strong>Différence clé :</strong><br>
+            • AgentThread = "je me souviens de ce qu'on vient de dire"<br>
+            • Memory = "je me souviens de ce qui est pertinent pour ta question"</p>
+    </div>
+</div>

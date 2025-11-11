@@ -1,0 +1,38 @@
+
+<!-- Slide 13: CHECK - Code -->
+<div class="slide">
+    <div class="devday-header">
+        <span class="devday-logo">DEVDAY 2025</span>
+    </div>
+    <h2>CHECK — AgentThread + Memory en Code</h2>
+
+    <div class="code-block">// Créer un thread (mémoire court terme)
+        var thread = new AgentThread();
+
+        // Configurer Memory (mémoire long terme)
+        var memory = new SemanticTextMemory(
+        storage: azureAISearchStore,
+        embeddingGenerator: embeddingModel
+        );
+
+        // L'agent utilise les deux
+        var agent = new ChatCompletionAgent(chatClient)
+        {
+        Instructions = "...",
+        Kernel = kernelWithMemory
+        };
+
+        // Sauvegarder un fait important dans Memory
+        await memory.SaveInformationAsync(
+        collection: "customer_history",
+        text: "Le client Jean préfère les livraisons le mardi",
+        id: "pref_jean_123"
+        );
+
+        // Plus tard, dans une nouvelle session...
+        var response = await agent.InvokeAsync(
+        thread,
+        "Quand Jean préfère-t-il être livré ?"
+        );
+        // L'agent rappellera automatiquement le fait depuis Memory</div>
+</div>

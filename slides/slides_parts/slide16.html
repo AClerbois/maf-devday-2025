@@ -1,0 +1,36 @@
+
+<!-- Slide 16: AGENT - Patterns -->
+<div class="slide">
+    <div class="devday-header">
+        <span class="devday-logo">DEVDAY 2025</span>
+    </div>
+    <h2>AGENT — Les Patterns d'Orchestration</h2>
+
+    <div class="grid-3">
+        <div class="card">
+            <h4>Handoff</h4>
+            <p>Relais entre agents spécialisés</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Triage → Expert → Escalation</p>
+        </div>
+        <div class="card">
+            <h4>Concurrent</h4>
+            <p>Plusieurs agents en parallèle</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Research + Analysis + Summary</p>
+        </div>
+        <div class="card">
+            <h4>Conditional Routing</h4>
+            <p>Routage dynamique selon résultats</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">if confidence > 0.8 → Auto<br>else → Human</p>
+        </div>
+    </div>
+
+    <h3 style="margin-top: 50px;">Exemple : Support Client Automatisé</h3>
+    <div class="diagram">
+        User Question<br>
+        <span class="arrow">↓</span><br>
+        <strong>TriageAgent</strong> (catégorise: technique/facturation/autre)<br>
+        <span class="arrow">⤴</span> technique → <strong>TechAgent</strong> (RAG sur docs)<br>
+        <span class="arrow">⤴</span> facturation → <strong>BillingAgent</strong> (accès DB)<br>
+        <span class="arrow">⤴</span> confidence < 0.7 → <strong>EscalationAgent</strong> (handoff humain)
+    </div>
+</div>

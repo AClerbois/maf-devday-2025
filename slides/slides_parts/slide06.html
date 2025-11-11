@@ -1,0 +1,34 @@
+<!-- Slide 6: PLAN - Code -->
+<div class="slide">
+    <div class="devday-header">
+        <span class="devday-logo">DEVDAY 2025</span>
+    </div>
+    <h2>PLAN — Configuration d'un Agent</h2>
+
+    <div class="code-block">var agent = new ChatCompletionAgent(chatClient)
+        {
+        Instructions = @"Tu es un assistant spécialisé
+        en recherche technique.
+
+        Ton rôle :
+        - Analyser les questions techniques
+        - Décomposer en sous-problèmes
+        - Chercher dans la documentation
+        - Synthétiser clairement
+
+        Règles :
+        - Cite toujours tes sources
+        - Admets quand tu ne sais pas
+        - Reste concis",
+
+        Name = "ResearchAgent",
+        Description = "Agent de recherche technique"
+        };</div>
+
+    <h3 style="margin-top: 30px;">Points clés</h3>
+    <ul>
+        <li><strong>Instructions</strong> : Le "cerveau" de l'agent, définit sa logique de raisonnement</li>
+        <li><strong>Name</strong> : Identifier l'agent dans les workflows multi-agents</li>
+        <li><strong>Description</strong> : Aide d'autres agents à comprendre quand l'utiliser</li>
+    </ul>
+</div>

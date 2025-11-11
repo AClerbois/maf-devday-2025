@@ -1,0 +1,43 @@
+
+<!-- Slide 9: DO - Code -->
+<div class="slide">
+    <div class="devday-header">
+        <span class="devday-logo">DEVDAY 2025</span>
+    </div>
+    <h2>DO — Définir et Enregistrer un Tool</h2>
+
+    <div class="code-block">using Microsoft.SemanticKernel;
+
+        public class WeatherTools
+        {
+        [KernelFunction]
+        [Description("Récupère la météo actuelle pour une ville")]
+        public async Task&lt;string&gt; GetWeather(
+        [Description("Nom de la ville")] string city)
+        {
+        // Appel à une API météo
+        var weather = await _weatherApi.GetCurrentAsync(city);
+        return $"À {city}: {weather.Condition}, {weather.Temp}°C";
+        }
+
+        [KernelFunction]
+        [Description("Prévisions météo sur 7 jours")]
+        public async Task&lt;string&gt; GetForecast(string city)
+        {
+        var forecast = await _weatherApi.GetForecastAsync(city);
+        return FormatForecast(forecast);
+        }
+        }
+
+        // Enregistrer dans l'agent
+        var kernel = Kernel.CreateBuilder()
+        .AddAzureOpenAIChatCompletion(...)
+        .Build();
+
+        kernel.Plugins.AddFromObject(new WeatherTools());
+
+        var agent = new ChatCompletionAgent(chatClient)
+        {
+        Kernel = kernel
+        };</div>
+</div>

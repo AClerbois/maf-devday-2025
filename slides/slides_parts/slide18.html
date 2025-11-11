@@ -1,0 +1,47 @@
+
+<!-- Slide 18: AGENT - Piège #4 -->
+<div class="slide">
+    <div class="devday-header">
+        <span class="devday-logo">DEVDAY 2025</span>
+    </div>
+    <h2>AGENT — Piège #4 : Sur-Orchestration <span class="emoji">⚠️</span></h2>
+
+    <div class="box warning">
+        <h3 style="color: #d62828; margin-top: 0;">❌ Trop d'agents = Complexité ingérable + Coûts explosifs</h3>
+        <p>Chaque agent ajouté multiplie les interactions, les points de défaillance, et la difficulté de debug
+        </p>
+    </div>
+
+    <h3 style="margin-top: 40px;">Principes de simplicité</h3>
+    <div class="two-column">
+        <div class="box">
+            <h4>Commencer simple</h4>
+            <ul style="margin-left: 20px; font-size: 1em;">
+                <li>1 agent d'abord</li>
+                <li>Ajouter un 2e seulement si nécessaire</li>
+                <li>Maximum 3-5 agents par workflow</li>
+            </ul>
+        </div>
+
+        <div class="box">
+            <h4>Division responsabilités</h4>
+            <ul style="margin-left: 20px; font-size: 1em;">
+                <li>Un agent = une responsabilité claire</li>
+                <li>Éviter les rôles qui se chevauchent</li>
+                <li>Documenter le périmètre de chaque agent</li>
+            </ul>
+        </div>
+    </div>
+
+    <p class="honor-quote" style="margin-top: 40px;">
+        <strong>Règle d'or :</strong> Si vous hésitez entre 1 agent polyvalent et 3 agents spécialisés,
+        commencez par 1. Divisez seulement quand la complexité le justifie.
+    </p>
+
+    <h3 style="margin-top: 40px;">Indicateurs qu'il faut diviser</h3>
+    <ul>
+        <li>L'agent échoue souvent par manque de contexte spécialisé</li>
+        <li>Les instructions dépassent 500 mots</li>
+        <li>Plusieurs domaines d'expertise incompatibles</li>
+    </ul>
+</div>

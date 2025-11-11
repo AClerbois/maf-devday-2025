@@ -1,0 +1,41 @@
+
+<!-- Slide 14: CHECK - Piège #3 -->
+<div class="slide">
+    <div class="devday-header">
+        <span class="devday-logo">DEVDAY 2025</span>
+    </div>
+    <h2>CHECK — Piège #3 : Ne Pas Gérer le Contexte <span class="emoji">⚠️</span></h2>
+
+    <div class="two-column">
+        <div class="box warning">
+            <h4>❌ Sans Memory</h4>
+            <p>Tout dans AgentThread<br>
+                → Explosion tokens<br>
+                → Perte infos anciennes<br>
+                → Coûts incontrôlables</p>
+        </div>
+
+        <div class="box warning">
+            <h4>❌ Sans AgentThread</h4>
+            <p>L'agent oublie tout<br>
+                → Pas de cohérence<br>
+                → Répétitions<br>
+                → Expérience frustrante</p>
+        </div>
+    </div>
+
+    <div class="box success" style="margin-top: 40px;">
+        <h3 style="color: #2a9d8f; margin-top: 0;">✅ Les deux ensemble</h3>
+        <ul>
+            <li><strong>AgentThread</strong> pour cohérence conversationnelle immédiate (10 derniers messages)
+            </li>
+            <li><strong>Memory</strong> pour rappel sémantique des informations anciennes</li>
+            <li><strong>Stratégie :</strong> Summariser régulièrement le thread et archiver dans Memory</li>
+        </ul>
+    </div>
+
+    <div class="diagram" style="margin-top: 40px;">
+        Message 1-10: AgentThread <span class="arrow">→</span> Summarize <span class="arrow">→</span> Memory<br>
+        Message 11-20: AgentThread <span class="arrow">→</span> Recall from Memory si pertinent
+    </div>
+</div>

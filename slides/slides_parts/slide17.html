@@ -1,0 +1,47 @@
+
+<!-- Slide 17: AGENT - Code Workflow -->
+<div class="slide">
+    <div class="devday-header">
+        <span class="devday-logo">DEVDAY 2025</span>
+    </div>
+    <h2>AGENT — Construire un Workflow Multi-Agents</h2>
+
+    <div class="code-block">// Définir les agents
+        var triageAgent = new ChatCompletionAgent(client)
+        {
+        Name = "Triage",
+        Instructions = "Catégorise les demandes: technical, billing, other"
+        };
+
+        var techAgent = new ChatCompletionAgent(client)
+        {
+        Name = "TechSupport",
+        Instructions = "Répond aux questions techniques",
+        Kernel = kernelWithRAG
+        };
+
+        var billingAgent = new ChatCompletionAgent(client)
+        {
+        Name = "Billing",
+        Instructions = "Gère les questions de facturation",
+        Kernel = kernelWithDatabase
+        };
+
+        // Construire le workflow
+        var workflow = new AgentWorkflowBuilder()
+        .AddAgent(triageAgent)
+        .AddTransition(
+        from: triageAgent,
+        to: techAgent,
+        condition: result => result.Category == "technical"
+        )
+        .AddTransition(
+        from: triageAgent,
+        to: billingAgent,
+        condition: result => result.Category == "billing"
+        )
+        .Build();
+
+        // Exécuter
+        var response = await workflow.RunAsync(thread, userMessage);</div>
+</div>

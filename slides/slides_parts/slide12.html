@@ -1,0 +1,34 @@
+
+
+<!-- Slide 12: CHECK - Memory Deep Dive -->
+<div class="slide">
+    <div class="devday-header">
+        <span class="devday-logo">DEVDAY 2025</span>
+    </div>
+    <h2>CHECK — Le système Memory en détail</h2>
+
+    <h3>Le problème sans Memory</h3>
+    <div class="box warning">
+        <p>Sans Memory, tout va dans AgentThread → explosion des tokens → perte de contexte ancien → coûts
+            incontrôlables</p>
+    </div>
+
+    <h3 style="margin-top: 40px;">Comment fonctionne Memory ?</h3>
+    <ol style="font-size: 1.4em;">
+        <li><strong>Vectorisation :</strong> Les faits/conversations importants sont convertis en embeddings
+        </li>
+        <li><strong>Stockage :</strong> Base vectorielle (Azure AI Search, Qdrant, etc.)</li>
+        <li><strong>Rappel sémantique :</strong> Seules les infos pertinentes sont injectées dans le contexte
+        </li>
+    </ol>
+
+    <div class="diagram" style="margin-top: 40px;">
+        Question utilisateur<br>
+        <span class="arrow">↓</span><br>
+        Recherche vectorielle dans Memory<br>
+        <span class="arrow">↓</span><br>
+        Top 5 faits pertinents ajoutés au contexte<br>
+        <span class="arrow">↓</span><br>
+        Agent raisonne avec contexte enrichi
+    </div>
+</div>
