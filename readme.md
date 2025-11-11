@@ -53,16 +53,34 @@ Microsoft MVP
 
 ## 📚 Contenu du repository
 
-### Slides
+### 📊 Présentation
 
-Les slides de la présentation sont disponibles dans le fichier [`slides/maf_slidedeck.html`](slides/maf_slidedeck.html).
+#### Slides
+Les slides de la présentation sont disponibles dans [`slides/maf_slidedeck.html`](slides/maf_slidedeck.html).
 
-> ⚠️ **Note** : Les slides sont actuellement en construction
+**Navigation :**
+- Ouvrir dans un navigateur
+- Utiliser ← → ou les boutons de navigation
+- Touches fléchées du clavier
 
-Pour visualiser les slides :
-1. Ouvrir le fichier `maf_slidedeck.html` dans un navigateur
-2. Utiliser les flèches ← → ou les boutons de navigation
-3. Utiliser les touches fléchées du clavier pour naviguer
+**Contenu (30 slides) :**
+- Slides 1-4 : Introduction & Pourquoi MAF
+- **Slides 5-9 : Installation du MAF** 📦 (NOUVEAU)
+  - Prérequis
+  - Packages NuGet
+  - Configuration minimale
+  - Bonnes pratiques sécurité
+  - Vérification
+- Slides 10-12 : PLAN (Raisonnement)
+- Slides 13-15 : DO (Actions)
+- Slides 16-19 : CHECK (Mémoire)
+- Slides 20-23 : AGENT (Orchestration)
+- Slides 24-30 : Démo, Récap, Ressources, Q&A
+
+#### Documents Complémentaires
+- 📝 [`SCRIPT_PRESENTATION.md`](SCRIPT_PRESENTATION.md) - Script complet de la présentation (slide par slide)
+- 📦 [`INSTALLATION_MAF.md`](INSTALLATION_MAF.md) - Guide d'installation détaillé du Microsoft Agent Framework
+- ✅ [`src/agents/00-installation-test/`](src/agents/00-installation-test/) - Projet de test d'installation
 
 ### Démos
 
@@ -72,13 +90,77 @@ Les exemples de code sont disponibles dans le dossier [`src/`](src/).
 
 ```
 src/
-├── 01-hello-world/                      🧠 PLAN - Premier agent simple
-├── 02-vision-llm/                       🧠 PLAN - Agent multimodal (vision)
-├── 03-multi-turn-agent/                 💾 CHECK - Conversation avec mémoire (thread)
-├── 04-use-tool/                         🛠️ DO - Agent avec outils (functions)
-├── 05-use-tool-with-human-interaction/  🎭 AGENT - Approbation humaine
-├── 06-expose-mcp/                       🌐 EXPOSER - Serveur MCP (Model Context Protocol)
-└── 07-observability/                    📊 OBSERVER - OpenTelemetry et monitoring
+├── agents/
+│   ├── 00-installation-test/              ✅ TEST - Vérifier l'installation
+│   ├── 01-hello-world/                    🧠 PLAN - Premier agent simple
+│   ├── 02-vision-llm/                     🧠 PLAN - Agent multimodal (vision)
+│   ├── 03-multi-turn-agent/               💾 CHECK - Conversation avec mémoire
+│   ├── 04-use-tool/                       🛠️ DO - Agent avec outils
+│   ├── 05-use-tool-with-human-interaction/🎭 AGENT - Approbation humaine
+│   ├── 06-expose-mcp/                     🌐 EXPOSER - Serveur MCP
+│   ├── 07-observability/                  📊 OBSERVER - Telemetry
+│   ├── 08-middleware/                     🔧 MIDDLEWARE - Pipelines
+│   ├── 09-persisting-conversations/       💾 PERSIST - Sauvegarder l'état
+│   ├── 10-third-party-chat-history-storage/💾 STORE - Stockage custom
+│   └── 11-adding-memory-to-agents/        🧠 MEMORY - Mémoire long terme
+├── mcp/
+│   └── 01-Use-MCP-as-tool/                🔌 MCP - Client MCP
+└── workflows/
+    ├── 01-simple-sequential-workflow/     📊 WORKFLOW - Séquentiel
+    ├── 02-simple-concurrent-workflow/     ⚡ WORKFLOW - Concurrent
+    └── 03-agents-in-workflows/            🎭 WORKFLOW - Multi-agents
+```
+
+---
+
+## 🚀 Démarrage Rapide
+
+### 1. Vérifier l'installation
+
+```powershell
+# Tester que tout est correctement configuré
+cd src/agents/00-installation-test
+
+# Configurer (choisir une option)
+# Option A : Variables d'environnement
+$env:DEPLOYMENT_NAME = "gpt-4"
+$env:AZURE_OPENAI_ENDPOINT = "https://votre-resource.openai.azure.com/"
+$env:AZURE_OPENAI_API_KEY = "votre-clé"
+
+# Option B : User Secrets
+dotnet user-secrets set "AzureOpenAI:DeploymentName" "gpt-4"
+dotnet user-secrets set "AzureOpenAI:Endpoint" "https://..."
+dotnet user-secrets set "AzureOpenAI:ApiKey" "votre-clé"
+
+# Exécuter le test
+dotnet run
+```
+
+**Résultat attendu :** ✅ INSTALLATION RÉUSSIE !
+
+### 2. Consulter la documentation
+
+- 📦 [`INSTALLATION_MAF.md`](INSTALLATION_MAF.md) - Guide complet d'installation
+- � [`SCRIPT_PRESENTATION.md`](SCRIPT_PRESENTATION.md) - Comprendre l'architecture PDCA
+
+---
+
+#### 00-installation-test ✅
+
+**Objectif** : Vérifier l'installation du MAF
+
+**Description** : Projet de test qui valide la configuration et la connexion à Azure OpenAI
+
+**Ce que vous apprenez** :
+- Configuration sécurisée (User Secrets, Variables d'environnement)
+- Création du Kernel
+- Premier agent de test
+- Gestion des erreurs
+
+**Utilisation** :
+```powershell
+cd src/agents/00-installation-test
+dotnet run
 ```
 
 ---

@@ -34,43 +34,35 @@ AIAgent englishAgent = null;
 
 try
 {
-
-
     frenchAgent = await GetTranslationAgentAsync("French", persistentAgentsClient, model);
     spanishAgent = await GetTranslationAgentAsync("Spanish", persistentAgentsClient, model);
     englishAgent = await GetTranslationAgentAsync("English", persistentAgentsClient, model);
 
-    Console.WriteLine(await frenchAgent.RunAsync("Hello, world!"));
-    Console.WriteLine(await frenchAgent.RunAsync("Hello, world!1"));
-    Console.WriteLine(await frenchAgent.RunAsync("Hello, world!2"));
-    Console.WriteLine(await frenchAgent.RunAsync("Hello, world!3"));
-    Console.WriteLine(await frenchAgent.RunAsync("Hello, world!4"));
-
-    // Build the workflow by adding executors and connecting them
-    // var workflow = new WorkflowBuilder(frenchAgent)
-    //     .AddEdge(frenchAgent, spanishAgent)
-    //     .AddEdge(spanishAgent, englishAgent)
-    //     .Build();
+   // Build the workflow by adding executors and connecting them
+    var workflow = new WorkflowBuilder(frenchAgent)
+        .AddEdge(frenchAgent, spanishAgent)
+        .AddEdge(spanishAgent, englishAgent)
+        .Build();
 
 
-    // // Execute the workflow
-    // await using StreamingRun run = await InProcessExecution.StreamAsync(
-    //     workflow,
-    //      new ChatMessage(ChatRole.User, "Hello World!"));
+    // Execute the workflow
+    await using StreamingRun run = await InProcessExecution.StreamAsync(
+        workflow,
+         new ChatMessage(ChatRole.User, "Hello World!"));
 
-    // // Must send the turn token to trigger the agents.
-    // // The agents are wrapped as executors. When they receive messages,
-    // // they will cache the messages and only start processing when they receive a TurnToken.
-    // await run.TrySendMessageAsync(new TurnToken(emitEvents: true));
-    // await foreach (WorkflowEvent evt in run.WatchStreamAsync().ConfigureAwait(false))
-    // {
-    //     System.Console.WriteLine("Event received: " + evt.GetType().Name);
+    // Must send the turn token to trigger the agents.
+    // The agents are wrapped as executors. When they receive messages,
+    // they will cache the messages and only start processing when they receive a TurnToken.
+    await run.TrySendMessageAsync(new TurnToken(emitEvents: true));
+    await foreach (WorkflowEvent evt in run.WatchStreamAsync().ConfigureAwait(false))
+    {
+        System.Console.WriteLine("Event received: " + evt.GetType().Name);
 
-    //     if (evt is AgentRunUpdateEvent executorComplete)
-    //     {
-    //         Console.WriteLine($"{executorComplete.ExecutorId}: {executorComplete.Data}");
-    //     }
-    // }
+        if (evt is AgentRunUpdateEvent executorComplete)
+        {
+            Console.WriteLine($"{executorComplete.ExecutorId}: {executorComplete.Data}");
+        }
+    }
 }
 finally
 {
