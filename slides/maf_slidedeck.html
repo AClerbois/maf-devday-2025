@@ -1,373 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plan, Do, Check… Agent ! - DevDay 2025</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Noto Sans JP', 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            overflow: hidden;
-            margin: 0;
-            padding: 0;
-        }
-
-        .slide-container {
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .slide {
-            background: linear-gradient(to bottom right, #ffffff 0%, #f8f9fa 100%);
-            width: 1920px;
-            height: 1080px;
-            border-radius: 0;
-            box-shadow: none;
-            padding: 80px 100px;
-            display: none;
-            flex-direction: column;
-            position: relative;
-            overflow-y: auto;
-            transform-origin: center center;
-            border-top: 8px solid #e63946;
-        }
-
-        /* Scaling pour s'adapter à l'écran */
-        @media (max-width: 1920px) {
-            .slide {
-                transform: scale(calc(100vw / 1920));
-            }
-        }
-
-        @media (max-height: 1080px) {
-            .slide {
-                transform: scale(calc(100vh / 1080));
-            }
-        }
-
-        @media (max-width: 1920px) and (max-height: 1080px) {
-            .slide {
-                transform: scale(min(calc(100vw / 1920), calc(100vh / 1080)));
-            }
-        }
-
-        .slide.active {
-            display: flex;
-            animation: slideIn 0.5s ease-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        /* DevDay branding */
-        .devday-header {
-            position: absolute;
-            top: 30px;
-            right: 100px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .devday-logo {
-            font-size: 1.8em;
-            font-weight: 900;
-            color: #e63946;
-            letter-spacing: 2px;
-        }
-
-        .bushido-accent {
-            font-size: 1.2em;
-            color: #1a1a2e;
-            font-weight: 300;
-            font-style: italic;
-        }
-
-        h1 {
-            font-size: 4.5em;
-            color: #1a1a2e;
-            margin-bottom: 30px;
-            line-height: 1.2;
-            font-weight: 900;
-        }
-
-        h2 {
-            font-size: 3em;
-            color: #e63946;
-            margin-bottom: 40px;
-            border-bottom: 5px solid #e63946;
-            padding-bottom: 15px;
-            font-weight: 700;
-        }
-
-        h3 {
-            font-size: 2em;
-            color: #0f3460;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
-        h4 {
-            font-size: 1.6em;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        p, li {
-            font-size: 1.5em;
-            line-height: 1.6;
-            color: #2c3e50;
-            margin-bottom: 18px;
-        }
-
-        .subtitle {
-            font-size: 2em;
-            color: #555;
-            font-weight: 300;
-        }
-
-        .highlight {
-            background: linear-gradient(120deg, #ffcc00 0%, #ffcc00 100%);
-            background-repeat: no-repeat;
-            background-size: 100% 40%;
-            background-position: 0 85%;
-            font-weight: 700;
-            color: #1a1a2e;
-        }
-
-        .code-block {
-            background: #1a1a2e;
-            color: #00ff88;
-            padding: 30px;
-            border-radius: 15px;
-            font-family: 'Courier New', monospace;
-            font-size: 1.3em;
-            margin: 30px 0;
-            overflow-x: auto;
-            white-space: pre;
-            line-height: 1.5;
-            border-left: 5px solid #e63946;
-        }
-
-        .two-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-top: 30px;
-        }
-
-        .box {
-            background: #f8f9fa;
-            padding: 35px;
-            border-radius: 20px;
-            border-left: 6px solid #e63946;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .box.warning {
-            border-left-color: #d62828;
-            background: #fff5f5;
-        }
-
-        .box.success {
-            border-left-color: #2a9d8f;
-            background: #e8f8f5;
-        }
-
-        .box.info {
-            border-left-color: #457b9d;
-            background: #e6f2f8;
-        }
-
-        .navigation {
-            position: fixed;
-            bottom: 50px;
-            right: 50px;
-            display: flex;
-            gap: 20px;
-            z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-            pointer-events: none;
-        }
-
-        .navigation.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        button {
-            background: linear-gradient(135deg, #e63946 0%, #d62828 100%);
-            color: white;
-            border: none;
-            padding: 20px 40px;
-            border-radius: 50px;
-            font-size: 1.4em;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
-            white-space: nowrap;
-            font-weight: 700;
-            font-family: 'Noto Sans JP', sans-serif;
-        }
-
-        button:hover {
-            background: linear-gradient(135deg, #d62828 0%, #c21e2e 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 7px 20px rgba(230, 57, 70, 0.4);
-        }
-
-        button:disabled {
-            background: #bdc3c7;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        .slide-number {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #95a5a6;
-            font-size: 1.3em;
-        }
-
-        .emoji {
-            font-size: 2em;
-        }
-
-        .center {
-            text-align: center;
-        }
-
-        .diagram {
-            background: #f8f9fa;
-            padding: 40px;
-            border-radius: 20px;
-            margin: 30px 0;
-            text-align: center;
-            font-size: 1.6em;
-            line-height: 2;
-            border: 3px solid #e63946;
-        }
-
-        .arrow {
-            color: #e63946;
-            font-weight: bold;
-            font-size: 1.8em;
-        }
-
-        .badge {
-            display: inline-block;
-            background: #e63946;
-            color: white;
-            padding: 8px 20px;
-            border-radius: 25px;
-            font-size: 1em;
-            margin-left: 15px;
-            font-weight: 700;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .card {
-            background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
-            color: white;
-            padding: 35px;
-            border-radius: 20px;
-            text-align: center;
-            transition: transform 0.3s;
-            border-top: 4px solid #e63946;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(230, 57, 70, 0.3);
-        }
-
-        .card h4 {
-            font-size: 1.8em;
-            margin-bottom: 15px;
-            color: #ffcc00;
-        }
-
-        .card p {
-            color: white;
-            font-size: 1.3em;
-        }
-
-        ul {
-            margin-left: 50px;
-        }
-
-        code {
-            background: #f0f0f0;
-            padding: 4px 8px;
-            border-radius: 5px;
-            font-family: 'Courier New', monospace;
-            color: #e63946;
-            font-weight: 600;
-        }
-
-        /* Bushido decorative elements */
-        .bushido-mark {
-            position: absolute;
-            top: 20px;
-            left: 100px;
-            font-size: 3em;
-            color: rgba(230, 57, 70, 0.1);
-            font-weight: 900;
-            transform: rotate(-5deg);
-        }
-
-        .honor-quote {
-            font-style: italic;
-            color: #e63946;
-            border-left: 4px solid #e63946;
-            padding-left: 20px;
-            margin: 30px 0;
-            font-size: 1.4em;
-        }
-
-        /* Footer info */
-        .footer-info {
-            position: absolute;
-            bottom: 30px;
-            left: 100px;
-            font-size: 1.1em;
-            color: #95a5a6;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div class="slide-container">
         <!-- Slide 1: Titre -->
@@ -399,7 +39,7 @@
                 <span class="devday-logo">DEVDAY 2025</span>
             </div>
             <h2>Du PDCA au PDCA... Agent ! <span class="emoji">🔄</span></h2>
-            
+
             <div class="two-column">
                 <div>
                     <h3>Le cycle de Deming (PDCA)</h3>
@@ -410,7 +50,7 @@
                         <li><strong>Act</strong> : Ajuster et améliorer</li>
                     </ul>
                 </div>
-                
+
                 <div>
                     <h3>Architecture d'un Agent</h3>
                     <ul>
@@ -423,7 +63,8 @@
             </div>
 
             <div class="box" style="margin-top: 40px;">
-                <p><strong>Promesse</strong> : Comprendre l'architecture d'un agent intelligent par le prisme du cycle PDCA — avec <span class="highlight">discipline</span> et <span class="highlight">honneur</span></p>
+                <p><strong>Promesse</strong> : Comprendre l'architecture d'un agent intelligent par le prisme du cycle
+                    PDCA — avec <span class="highlight">discipline</span> et <span class="highlight">honneur</span></p>
             </div>
         </div>
 
@@ -433,13 +74,15 @@
                 <span class="devday-logo">DEVDAY 2025</span>
             </div>
             <h2>Qu'est-ce qu'un Agent ? <span class="emoji">🤖</span></h2>
-            
+
             <div class="box info">
-                <p style="font-size: 1.6em;"><strong>Définition :</strong> Système autonome qui <span class="highlight">perçoit</span> son environnement, <span class="highlight">raisonne</span>, puis <span class="highlight">agit</span></p>
+                <p style="font-size: 1.6em;"><strong>Définition :</strong> Système autonome qui <span
+                        class="highlight">perçoit</span> son environnement, <span class="highlight">raisonne</span>,
+                    puis <span class="highlight">agit</span></p>
             </div>
 
             <h3 style="margin-top: 40px;">Les 4 caractéristiques d'un agent</h3>
-            <div class="grid-3">
+            <div class="grid-2x2">
                 <div class="card">
                     <h4>Autonomie</h4>
                     <p>Agit sans intervention humaine constante</p>
@@ -452,14 +95,20 @@
                     <h4>Proactivité</h4>
                     <p>Prend des initiatives pour atteindre ses objectifs</p>
                 </div>
+                <div class="card">
+                    <h4>Sociabilité</h4>
+                    <p>Interagit avec d'autres agents et systèmes</p>
+                </div>
             </div>
 
             <div class="diagram" style="margin-top: 40px;">
-                Environment <span class="arrow">→</span> Perceive <span class="arrow">→</span> Think <span class="arrow">→</span> Act <span class="arrow">→</span> Environment
+                Environment <span class="arrow">→</span> Perceive <span class="arrow">→</span> Think <span
+                    class="arrow">→</span> Act <span class="arrow">→</span> Environment
             </div>
 
             <div class="box" style="margin-top: 30px;">
-                <p><strong>Chatbot vs Agent :</strong> Un chatbot répond. Un agent <em>agit</em> dans une boucle perception-action.</p>
+                <p><strong>Chatbot vs Agent :</strong> Un chatbot répond. Un agent <em>agit</em> dans une boucle
+                    perception-action.</p>
             </div>
         </div>
 
@@ -469,27 +118,28 @@
                 <span class="devday-logo">DEVDAY 2025</span>
             </div>
             <h2>Pourquoi Microsoft Agent Framework ? <span class="emoji">🚀</span></h2>
-            
+
             <h3>La fusion de deux mondes</h3>
             <div class="two-column">
                 <div class="box">
                     <h4>Semantic Kernel</h4>
                     <p>✅ Robustesse enterprise<br>
-                    ✅ Intégrations .NET<br>
-                    ✅ Observabilité built-in<br>
-                    ❌ Orchestration complexe</p>
+                        ✅ Intégrations .NET<br>
+                        ✅ Observabilité built-in<br>
+                        ❌ Orchestration complexe</p>
                 </div>
                 <div class="box">
                     <h4>AutoGen</h4>
                     <p>✅ Patterns multi-agents simples<br>
-                    ✅ Workflows flexibles<br>
-                    ✅ Abstraction élégante<br>
-                    ❌ Moins de fonctionnalités enterprise</p>
+                        ✅ Workflows flexibles<br>
+                        ✅ Abstraction élégante<br>
+                        ❌ Moins de fonctionnalités enterprise</p>
                 </div>
             </div>
 
             <div class="box success" style="margin-top: 40px;">
-                <h3 style="color: #2a9d8f; margin-top: 0;">Microsoft Agent Framework = Le meilleur des deux <span class="badge">Oct 2024</span></h3>
+                <h3 style="color: #2a9d8f; margin-top: 0;">Microsoft Agent Framework = Le meilleur des deux <span
+                        class="badge">Oct 2024</span></h3>
                 <ul>
                     <li>Abstractions simples d'AutoGen + fonctionnalités enterprise de SK</li>
                     <li>Open source (GitHub) | .NET & Python</li>
@@ -509,9 +159,10 @@
                 <span class="devday-logo">DEVDAY 2025</span>
             </div>
             <h2>PLAN — Le Raisonnement de l'Agent <span class="emoji">🧠</span></h2>
-            
+
             <div class="diagram">
-                User Query <span class="arrow">→</span> <span class="highlight">Chat Completions</span> <span class="arrow">→</span> Task Decomposition <span class="arrow">→</span> Action Plan
+                User Query <span class="arrow">→</span> <span class="highlight">Chat Completions</span> <span
+                    class="arrow">→</span> Task Decomposition <span class="arrow">→</span> Action Plan
             </div>
 
             <h3>Architecture du raisonnement dans MAF</h3>
@@ -529,7 +180,8 @@
             </ul>
 
             <div class="box" style="margin-top: 40px;">
-                <p><strong>Concept clé :</strong> La <span class="highlight">persona</span> de l'agent définit son comportement et ses capacités de raisonnement</p>
+                <p><strong>Concept clé :</strong> La <span class="highlight">persona</span> de l'agent définit son
+                    comportement et ses capacités de raisonnement</p>
             </div>
         </div>
 
@@ -539,26 +191,26 @@
                 <span class="devday-logo">DEVDAY 2025</span>
             </div>
             <h2>PLAN — Configuration d'un Agent</h2>
-            
+
             <div class="code-block">var agent = new ChatCompletionAgent(chatClient)
-{
-    Instructions = @"Tu es un assistant spécialisé 
-        en recherche technique. 
-        
-        Ton rôle :
-        - Analyser les questions techniques
-        - Décomposer en sous-problèmes
-        - Chercher dans la documentation
-        - Synthétiser clairement
-        
-        Règles :
-        - Cite toujours tes sources
-        - Admets quand tu ne sais pas
-        - Reste concis",
-    
-    Name = "ResearchAgent",
-    Description = "Agent de recherche technique"
-};</div>
+                {
+                Instructions = @"Tu es un assistant spécialisé
+                en recherche technique.
+
+                Ton rôle :
+                - Analyser les questions techniques
+                - Décomposer en sous-problèmes
+                - Chercher dans la documentation
+                - Synthétiser clairement
+
+                Règles :
+                - Cite toujours tes sources
+                - Admets quand tu ne sais pas
+                - Reste concis",
+
+                Name = "ResearchAgent",
+                Description = "Agent de recherche technique"
+                };</div>
 
             <h3 style="margin-top: 30px;">Points clés</h3>
             <ul>
@@ -574,10 +226,12 @@
                 <span class="devday-logo">DEVDAY 2025</span>
             </div>
             <h2>PLAN — Piège #1 : La Discipline du Plan <span class="emoji">⚠️</span></h2>
-            
+
             <div class="box warning">
-                <h3 style="color: #d62828; margin-top: 0;">❌ Donner trop de liberté = Hallucinations + Coûts explosifs</h3>
-                <p>Un agent sans contraintes explore toutes les possibilités, dévie de l'objectif, et consomme des tokens inutilement</p>
+                <h3 style="color: #d62828; margin-top: 0;">❌ Donner trop de liberté = Hallucinations + Coûts explosifs
+                </h3>
+                <p>Un agent sans contraintes explore toutes les possibilités, dévie de l'objectif, et consomme des
+                    tokens inutilement</p>
             </div>
 
             <h3 style="margin-top: 40px;">Les Guardrails nécessaires</h3>
@@ -590,7 +244,7 @@
                         <li>Interdire certains sujets/actions</li>
                     </ul>
                 </div>
-                
+
                 <div class="box">
                     <h4>Contrôler l'exécution</h4>
                     <ul style="margin-left: 20px; font-size: 1em;">
@@ -602,7 +256,8 @@
             </div>
 
             <p class="honor-quote" style="margin-top: 40px;">
-                <strong>Honneur du résultat :</strong> L'agent doit accomplir <em>sa mission</em>, pas explorer toutes les possibilités. Guidez-le avec précision et discipline.
+                <strong>Honneur du résultat :</strong> L'agent doit accomplir <em>sa mission</em>, pas explorer toutes
+                les possibilités. Guidez-le avec précision et discipline.
             </p>
         </div>
 
@@ -612,20 +267,22 @@
                 <span class="devday-logo">DEVDAY 2025</span>
             </div>
             <h2>DO — Les Actions de l'Agent <span class="emoji">🛠️</span></h2>
-            
+
             <div class="diagram">
-                Agent Decision <span class="arrow">→</span> <span class="highlight">Tool Selection</span> <span class="arrow">→</span> Execute Action <span class="arrow">→</span> Real World Impact
+                Agent Decision <span class="arrow">→</span> <span class="highlight">Tool Selection</span> <span
+                    class="arrow">→</span> Execute Action <span class="arrow">→</span> Real World Impact
             </div>
 
             <h3>Tools : Connecter l'agent au monde réel</h3>
             <p>Les <strong>Functions/Tools</strong> sont les <em>effecteurs</em> de l'agent — ses mains pour agir.</p>
 
             <h3 style="margin-top: 40px;">Trois façons d'intégrer des outils dans MAF</h3>
-            
+
             <div class="grid-3">
                 <div class="card">
                     <h4>Décorateurs .NET</h4>
-                    <p><code style="background: transparent; color: #ffcc00;">[KernelFunction]</code><br>sur vos méthodes C#</p>
+                    <p><code style="background: transparent; color: #ffcc00;">[KernelFunction]</code><br>sur vos
+                        méthodes C#</p>
                 </div>
                 <div class="card">
                     <h4>Model Context Protocol</h4>
@@ -638,7 +295,8 @@
             </div>
 
             <div class="box" style="margin-top: 40px;">
-                <p><strong>Principe :</strong> Le LLM <em>choisit</em> quel tool utiliser en fonction des descriptions que vous fournissez</p>
+                <p><strong>Principe :</strong> Le LLM <em>choisit</em> quel tool utiliser en fonction des descriptions
+                    que vous fournissez</p>
             </div>
         </div>
 
@@ -648,41 +306,41 @@
                 <span class="devday-logo">DEVDAY 2025</span>
             </div>
             <h2>DO — Définir et Enregistrer un Tool</h2>
-            
+
             <div class="code-block">using Microsoft.SemanticKernel;
 
-public class WeatherTools
-{
-    [KernelFunction]
-    [Description("Récupère la météo actuelle pour une ville")]
-    public async Task&lt;string&gt; GetWeather(
-        [Description("Nom de la ville")] string city)
-    {
-        // Appel à une API météo
-        var weather = await _weatherApi.GetCurrentAsync(city);
-        return $"À {city}: {weather.Condition}, {weather.Temp}°C";
-    }
-    
-    [KernelFunction]
-    [Description("Prévisions météo sur 7 jours")]
-    public async Task&lt;string&gt; GetForecast(string city)
-    {
-        var forecast = await _weatherApi.GetForecastAsync(city);
-        return FormatForecast(forecast);
-    }
-}
+                public class WeatherTools
+                {
+                [KernelFunction]
+                [Description("Récupère la météo actuelle pour une ville")]
+                public async Task&lt;string&gt; GetWeather(
+                [Description("Nom de la ville")] string city)
+                {
+                // Appel à une API météo
+                var weather = await _weatherApi.GetCurrentAsync(city);
+                return $"À {city}: {weather.Condition}, {weather.Temp}°C";
+                }
 
-// Enregistrer dans l'agent
-var kernel = Kernel.CreateBuilder()
-    .AddAzureOpenAIChatCompletion(...)
-    .Build();
+                [KernelFunction]
+                [Description("Prévisions météo sur 7 jours")]
+                public async Task&lt;string&gt; GetForecast(string city)
+                {
+                var forecast = await _weatherApi.GetForecastAsync(city);
+                return FormatForecast(forecast);
+                }
+                }
 
-kernel.Plugins.AddFromObject(new WeatherTools());
+                // Enregistrer dans l'agent
+                var kernel = Kernel.CreateBuilder()
+                .AddAzureOpenAIChatCompletion(...)
+                .Build();
 
-var agent = new ChatCompletionAgent(chatClient)
-{
-    Kernel = kernel
-};</div>
+                kernel.Plugins.AddFromObject(new WeatherTools());
+
+                var agent = new ChatCompletionAgent(chatClient)
+                {
+                Kernel = kernel
+                };</div>
         </div>
 
         <!-- Slide 10: DO - Piège #2 -->
@@ -691,10 +349,12 @@ var agent = new ChatCompletionAgent(chatClient)
                 <span class="devday-logo">DEVDAY 2025</span>
             </div>
             <h2>DO — Piège #2 : Tools Mal Documentés <span class="emoji">⚠️</span></h2>
-            
+
             <div class="box warning">
-                <h3 style="color: #d62828; margin-top: 0;">❌ Description floue = Mauvais choix d'outil = Échecs silencieux</h3>
-                <p>Le LLM ne peut pas "deviner" ce que fait votre fonction. Il se base uniquement sur le nom et la description.</p>
+                <h3 style="color: #d62828; margin-top: 0;">❌ Description floue = Mauvais choix d'outil = Échecs
+                    silencieux</h3>
+                <p>Le LLM ne peut pas "deviner" ce que fait votre fonction. Il se base uniquement sur le nom et la
+                    description.</p>
             </div>
 
             <h3 style="margin-top: 40px;">Exemple : Mauvaise vs Bonne documentation</h3>
@@ -702,24 +362,26 @@ var agent = new ChatCompletionAgent(chatClient)
                 <div class="box warning">
                     <h4>❌ Mauvais</h4>
                     <div class="code-block" style="font-size: 0.9em;">[KernelFunction]
-[Description("Get data")]
-public string GetData(string id)</div>
+                        [Description("Get data")]
+                        public string GetData(string id)</div>
                     <p style="font-size: 0.9em; margin-top: 10px;">Trop vague, l'agent ne sait pas quand l'utiliser</p>
                 </div>
-                
+
                 <div class="box success">
                     <h4>✅ Bon</h4>
                     <div class="code-block" style="font-size: 0.9em;">[KernelFunction]
-[Description("Récupère les détails d'une commande client par son ID. Retourne status, items, total.")]
-public OrderDetails GetOrder(
-  [Description("ID numérique de la commande")] 
-  string orderId)</div>
+                        [Description("Récupère les détails d'une commande client par son ID. Retourne status, items,
+                        total.")]
+                        public OrderDetails GetOrder(
+                        [Description("ID numérique de la commande")]
+                        string orderId)</div>
                     <p style="font-size: 0.9em; margin-top: 10px;">Clair, précis, le LLM sait exactement quoi faire</p>
                 </div>
             </div>
 
             <div class="box" style="margin-top: 30px;">
-                <p><strong>Best practice :</strong> Testez vos tools isolément avant de les donner à l'agent. Validez qu'ils retournent des données exploitables.</p>
+                <p><strong>Best practice :</strong> Testez vos tools isolément avant de les donner à l'agent. Validez
+                    qu'ils retournent des données exploitables.</p>
             </div>
         </div>
 
@@ -729,9 +391,11 @@ public OrderDetails GetOrder(
                 <span class="devday-logo">DEVDAY 2025</span>
             </div>
             <h2>CHECK — La Mémoire et l'État <span class="emoji">💾</span></h2>
-            
+
             <div class="diagram">
-                Conversation <span class="arrow">→</span> <span class="highlight">AgentThread</span> (court terme) <span class="arrow">→</span> <span class="highlight">Memory</span> (long terme) <span class="arrow">→</span> Contexte Enrichi
+                Conversation <span class="arrow">→</span> <span class="highlight">AgentThread</span> (court terme) <span
+                    class="arrow">→</span> <span class="highlight">Memory</span> (long terme) <span
+                    class="arrow">→</span> Contexte Enrichi
             </div>
 
             <h3>Deux types de mémoire dans MAF</h3>
@@ -745,7 +409,7 @@ public OrderDetails GetOrder(
                         <li>Gère l'état conversationnel</li>
                     </ul>
                 </div>
-                
+
                 <div class="box">
                     <h4>Memory <span class="badge">Long terme</span></h4>
                     <p>Base de connaissances vectorisée</p>
@@ -759,8 +423,8 @@ public OrderDetails GetOrder(
 
             <div class="box success" style="margin-top: 40px;">
                 <p><strong>Différence clé :</strong><br>
-                • AgentThread = "je me souviens de ce qu'on vient de dire"<br>
-                • Memory = "je me souviens de ce qui est pertinent pour ta question"</p>
+                    • AgentThread = "je me souviens de ce qu'on vient de dire"<br>
+                    • Memory = "je me souviens de ce qui est pertinent pour ta question"</p>
             </div>
         </div>
 
@@ -770,17 +434,20 @@ public OrderDetails GetOrder(
                 <span class="devday-logo">DEVDAY 2025</span>
             </div>
             <h2>CHECK — Le système Memory en détail</h2>
-            
+
             <h3>Le problème sans Memory</h3>
             <div class="box warning">
-                <p>Sans Memory, tout va dans AgentThread → explosion des tokens → perte de contexte ancien → coûts incontrôlables</p>
+                <p>Sans Memory, tout va dans AgentThread → explosion des tokens → perte de contexte ancien → coûts
+                    incontrôlables</p>
             </div>
 
             <h3 style="margin-top: 40px;">Comment fonctionne Memory ?</h3>
             <ol style="font-size: 1.4em;">
-                <li><strong>Vectorisation :</strong> Les faits/conversations importants sont convertis en embeddings</li>
+                <li><strong>Vectorisation :</strong> Les faits/conversations importants sont convertis en embeddings
+                </li>
                 <li><strong>Stockage :</strong> Base vectorielle (Azure AI Search, Qdrant, etc.)</li>
-                <li><strong>Rappel sémantique :</strong> Seules les infos pertinentes sont injectées dans le contexte</li>
+                <li><strong>Rappel sémantique :</strong> Seules les infos pertinentes sont injectées dans le contexte
+                </li>
             </ol>
 
             <div class="diagram" style="margin-top: 40px;">
@@ -800,36 +467,36 @@ public OrderDetails GetOrder(
                 <span class="devday-logo">DEVDAY 2025</span>
             </div>
             <h2>CHECK — AgentThread + Memory en Code</h2>
-            
+
             <div class="code-block">// Créer un thread (mémoire court terme)
-var thread = new AgentThread();
+                var thread = new AgentThread();
 
-// Configurer Memory (mémoire long terme)
-var memory = new SemanticTextMemory(
-    storage: azureAISearchStore,
-    embeddingGenerator: embeddingModel
-);
+                // Configurer Memory (mémoire long terme)
+                var memory = new SemanticTextMemory(
+                storage: azureAISearchStore,
+                embeddingGenerator: embeddingModel
+                );
 
-// L'agent utilise les deux
-var agent = new ChatCompletionAgent(chatClient)
-{
-    Instructions = "...",
-    Kernel = kernelWithMemory
-};
+                // L'agent utilise les deux
+                var agent = new ChatCompletionAgent(chatClient)
+                {
+                Instructions = "...",
+                Kernel = kernelWithMemory
+                };
 
-// Sauvegarder un fait important dans Memory
-await memory.SaveInformationAsync(
-    collection: "customer_history",
-    text: "Le client Jean préfère les livraisons le mardi",
-    id: "pref_jean_123"
-);
+                // Sauvegarder un fait important dans Memory
+                await memory.SaveInformationAsync(
+                collection: "customer_history",
+                text: "Le client Jean préfère les livraisons le mardi",
+                id: "pref_jean_123"
+                );
 
-// Plus tard, dans une nouvelle session...
-var response = await agent.InvokeAsync(
-    thread, 
-    "Quand Jean préfère-t-il être livré ?"
-);
-// L'agent rappellera automatiquement le fait depuis Memory</div>
+                // Plus tard, dans une nouvelle session...
+                var response = await agent.InvokeAsync(
+                thread,
+                "Quand Jean préfère-t-il être livré ?"
+                );
+                // L'agent rappellera automatiquement le fait depuis Memory</div>
         </div>
 
         <!-- Slide 14: CHECK - Piège #3 -->
@@ -838,29 +505,30 @@ var response = await agent.InvokeAsync(
                 <span class="devday-logo">DEVDAY 2025</span>
             </div>
             <h2>CHECK — Piège #3 : Ne Pas Gérer le Contexte <span class="emoji">⚠️</span></h2>
-            
+
             <div class="two-column">
                 <div class="box warning">
                     <h4>❌ Sans Memory</h4>
                     <p>Tout dans AgentThread<br>
-                    → Explosion tokens<br>
-                    → Perte infos anciennes<br>
-                    → Coûts incontrôlables</p>
+                        → Explosion tokens<br>
+                        → Perte infos anciennes<br>
+                        → Coûts incontrôlables</p>
                 </div>
-                
+
                 <div class="box warning">
                     <h4>❌ Sans AgentThread</h4>
                     <p>L'agent oublie tout<br>
-                    → Pas de cohérence<br>
-                    → Répétitions<br>
-                    → Expérience frustrante</p>
+                        → Pas de cohérence<br>
+                        → Répétitions<br>
+                        → Expérience frustrante</p>
                 </div>
             </div>
 
             <div class="box success" style="margin-top: 40px;">
                 <h3 style="color: #2a9d8f; margin-top: 0;">✅ Les deux ensemble</h3>
                 <ul>
-                    <li><strong>AgentThread</strong> pour cohérence conversationnelle immédiate (10 derniers messages)</li>
+                    <li><strong>AgentThread</strong> pour cohérence conversationnelle immédiate (10 derniers messages)
+                    </li>
                     <li><strong>Memory</strong> pour rappel sémantique des informations anciennes</li>
                     <li><strong>Stratégie :</strong> Summariser régulièrement le thread et archiver dans Memory</li>
                 </ul>
@@ -878,9 +546,10 @@ var response = await agent.InvokeAsync(
                 <span class="devday-logo">DEVDAY 2025</span>
             </div>
             <h2>AGENT — L'Orchestration avec Workflows <span class="emoji">🎭</span></h2>
-            
+
             <div class="box info">
-                <p style="font-size: 1.5em;">Un agent seul est puissant. Plusieurs agents orchestrés sont <span class="highlight">exponentiellement plus capables</span>.</p>
+                <p style="font-size: 1.5em;">Un agent seul est puissant. Plusieurs agents orchestrés sont <span
+                        class="highlight">exponentiellement plus capables</span>.</p>
             </div>
 
             <h3 style="margin-top: 40px;">Le pattern clé du MAF : AgentWorkflow</h3>
@@ -908,7 +577,7 @@ var response = await agent.InvokeAsync(
                 <span class="devday-logo">DEVDAY 2025</span>
             </div>
             <h2>AGENT — Les Patterns d'Orchestration</h2>
-            
+
             <div class="grid-3">
                 <div class="card">
                     <h4>Handoff</h4>
@@ -944,45 +613,45 @@ var response = await agent.InvokeAsync(
                 <span class="devday-logo">DEVDAY 2025</span>
             </div>
             <h2>AGENT — Construire un Workflow Multi-Agents</h2>
-            
+
             <div class="code-block">// Définir les agents
-var triageAgent = new ChatCompletionAgent(client)
-{
-    Name = "Triage",
-    Instructions = "Catégorise les demandes: technical, billing, other"
-};
+                var triageAgent = new ChatCompletionAgent(client)
+                {
+                Name = "Triage",
+                Instructions = "Catégorise les demandes: technical, billing, other"
+                };
 
-var techAgent = new ChatCompletionAgent(client)
-{
-    Name = "TechSupport",
-    Instructions = "Répond aux questions techniques",
-    Kernel = kernelWithRAG
-};
+                var techAgent = new ChatCompletionAgent(client)
+                {
+                Name = "TechSupport",
+                Instructions = "Répond aux questions techniques",
+                Kernel = kernelWithRAG
+                };
 
-var billingAgent = new ChatCompletionAgent(client)
-{
-    Name = "Billing",
-    Instructions = "Gère les questions de facturation",
-    Kernel = kernelWithDatabase
-};
+                var billingAgent = new ChatCompletionAgent(client)
+                {
+                Name = "Billing",
+                Instructions = "Gère les questions de facturation",
+                Kernel = kernelWithDatabase
+                };
 
-// Construire le workflow
-var workflow = new AgentWorkflowBuilder()
-    .AddAgent(triageAgent)
-    .AddTransition(
-        from: triageAgent, 
-        to: techAgent,
-        condition: result => result.Category == "technical"
-    )
-    .AddTransition(
-        from: triageAgent,
-        to: billingAgent,
-        condition: result => result.Category == "billing"
-    )
-    .Build();
+                // Construire le workflow
+                var workflow = new AgentWorkflowBuilder()
+                .AddAgent(triageAgent)
+                .AddTransition(
+                from: triageAgent,
+                to: techAgent,
+                condition: result => result.Category == "technical"
+                )
+                .AddTransition(
+                from: triageAgent,
+                to: billingAgent,
+                condition: result => result.Category == "billing"
+                )
+                .Build();
 
-// Exécuter
-var response = await workflow.RunAsync(thread, userMessage);</div>
+                // Exécuter
+                var response = await workflow.RunAsync(thread, userMessage);</div>
         </div>
 
         <!-- Slide 18: AGENT - Piège #4 -->
@@ -991,10 +660,11 @@ var response = await workflow.RunAsync(thread, userMessage);</div>
                 <span class="devday-logo">DEVDAY 2025</span>
             </div>
             <h2>AGENT — Piège #4 : Sur-Orchestration <span class="emoji">⚠️</span></h2>
-            
+
             <div class="box warning">
                 <h3 style="color: #d62828; margin-top: 0;">❌ Trop d'agents = Complexité ingérable + Coûts explosifs</h3>
-                <p>Chaque agent ajouté multiplie les interactions, les points de défaillance, et la difficulté de debug</p>
+                <p>Chaque agent ajouté multiplie les interactions, les points de défaillance, et la difficulté de debug
+                </p>
             </div>
 
             <h3 style="margin-top: 40px;">Principes de simplicité</h3>
@@ -1007,7 +677,7 @@ var response = await workflow.RunAsync(thread, userMessage);</div>
                         <li>Maximum 3-5 agents par workflow</li>
                     </ul>
                 </div>
-                
+
                 <div class="box">
                     <h4>Division responsabilités</h4>
                     <ul style="margin-left: 20px; font-size: 1em;">
@@ -1019,7 +689,8 @@ var response = await workflow.RunAsync(thread, userMessage);</div>
             </div>
 
             <p class="honor-quote" style="margin-top: 40px;">
-                <strong>Règle d'or :</strong> Si vous hésitez entre 1 agent polyvalent et 3 agents spécialisés, commencez par 1. Divisez seulement quand la complexité le justifie.
+                <strong>Règle d'or :</strong> Si vous hésitez entre 1 agent polyvalent et 3 agents spécialisés,
+                commencez par 1. Divisez seulement quand la complexité le justifie.
             </p>
 
             <h3 style="margin-top: 40px;">Indicateurs qu'il faut diviser</h3>
@@ -1036,10 +707,13 @@ var response = await workflow.RunAsync(thread, userMessage);</div>
                 <span class="devday-logo">DEVDAY 2025</span>
             </div>
             <h2>Démo Live <span class="emoji">🎬</span></h2>
-            
-            <div class="box" style="background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%); color: white; padding: 50px; border: 4px solid #e63946;">
-                <h3 style="color: #ffcc00; text-align: center; font-size: 2.5em; margin: 0;">Support Client Multi-Agents</h3>
-                <p style="color: white; text-align: center; font-size: 1.5em; margin-top: 25px;">Architecture complète avec Triage → Experts → Escalation</p>
+
+            <div class="box"
+                style="background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%); color: white; padding: 50px; border: 4px solid #e63946;">
+                <h3 style="color: #ffcc00; text-align: center; font-size: 2.5em; margin: 0;">Support Client Multi-Agents
+                </h3>
+                <p style="color: white; text-align: center; font-size: 1.5em; margin-top: 25px;">Architecture complète
+                    avec Triage → Experts → Escalation</p>
             </div>
 
             <h3 style="margin-top: 50px;">Ce que vous allez voir</h3>
@@ -1053,7 +727,8 @@ var response = await workflow.RunAsync(thread, userMessage);</div>
             </ol>
 
             <div class="box info" style="margin-top: 40px;">
-                <p><strong>Technologies :</strong> MAF + Azure OpenAI + Azure AI Search (RAG) + Azure CosmosDB (state)</p>
+                <p><strong>Technologies :</strong> MAF + Azure OpenAI + Azure AI Search (RAG) + Azure CosmosDB (state)
+                </p>
             </div>
         </div>
 
@@ -1063,7 +738,7 @@ var response = await workflow.RunAsync(thread, userMessage);</div>
                 <span class="devday-logo">DEVDAY 2025</span>
             </div>
             <h2>Récap : Les 4 Piliers du MAF <span class="emoji">🏛️</span></h2>
-            
+
             <div class="two-column" style="gap: 50px; margin-top: 40px;">
                 <div class="card">
                     <h4>🧠 PLAN</h4>
@@ -1091,7 +766,9 @@ var response = await workflow.RunAsync(thread, userMessage);</div>
             </div>
 
             <div class="diagram" style="margin-top: 50px; font-size: 1.5em;">
-                <strong>PERCEIVE</strong> (Tools) <span class="arrow">→</span> <strong>THINK</strong> (Plan) <span class="arrow">→</span> <strong>REMEMBER</strong> (Check) <span class="arrow">→</span> <strong>ACT</strong> (Agent)
+                <strong>PERCEIVE</strong> (Tools) <span class="arrow">→</span> <strong>THINK</strong> (Plan) <span
+                    class="arrow">→</span> <strong>REMEMBER</strong> (Check) <span class="arrow">→</span>
+                <strong>ACT</strong> (Agent)
             </div>
         </div>
 
@@ -1101,7 +778,7 @@ var response = await workflow.RunAsync(thread, userMessage);</div>
                 <span class="devday-logo">DEVDAY 2025</span>
             </div>
             <h2>Squelette Prêt à Étendre <span class="emoji">🏗️</span></h2>
-            
+
             <h3>Le workflow de développement</h3>
             <ol style="font-size: 1.4em;">
                 <li><strong>Commencer simple :</strong> 1 agent, 2-3 tools, instructions claires</li>
@@ -1123,7 +800,8 @@ var response = await workflow.RunAsync(thread, userMessage);</div>
             </ol>
 
             <p class="honor-quote" style="margin-top: 50px; font-size: 1.6em;">
-                <strong>Discipline & Pragmatisme :</strong> La tentation est d'ajouter features. La discipline est de rester simple jusqu'à ce que la complexité soit justifiée.
+                <strong>Discipline & Pragmatisme :</strong> La tentation est d'ajouter features. La discipline est de
+                rester simple jusqu'à ce que la complexité soit justifiée.
             </p>
         </div>
 
@@ -1133,30 +811,34 @@ var response = await workflow.RunAsync(thread, userMessage);</div>
                 <span class="devday-logo">DEVDAY 2025</span>
             </div>
             <h2>Résumé des 4 Pièges à Éviter <span class="emoji">⚠️</span></h2>
-            
+
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 40px;">
                 <div class="box warning">
                     <h4>Piège #1 : Plan sans discipline</h4>
                     <p style="font-size: 1.1em;">Trop de liberté = hallucinations + coûts</p>
-                    <p style="font-size: 1em; margin-top: 15px;"><strong>Solution :</strong> Guardrails, contraintes, budget tokens</p>
+                    <p style="font-size: 1em; margin-top: 15px;"><strong>Solution :</strong> Guardrails, contraintes,
+                        budget tokens</p>
                 </div>
-                
+
                 <div class="box warning">
                     <h4>Piège #2 : Tools mal documentés</h4>
                     <p style="font-size: 1.1em;">Descriptions floues = mauvais choix</p>
-                    <p style="font-size: 1em; margin-top: 15px;"><strong>Solution :</strong> Descriptions détaillées, tests isolés</p>
+                    <p style="font-size: 1em; margin-top: 15px;"><strong>Solution :</strong> Descriptions détaillées,
+                        tests isolés</p>
                 </div>
-                
+
                 <div class="box warning">
                     <h4>Piège #3 : Mémoire non gérée</h4>
                     <p style="font-size: 1.1em;">Explosion du contexte = perte infos</p>
-                    <p style="font-size: 1em; margin-top: 15px;"><strong>Solution :</strong> AgentThread + Memory ensemble</p>
+                    <p style="font-size: 1em; margin-top: 15px;"><strong>Solution :</strong> AgentThread + Memory
+                        ensemble</p>
                 </div>
-                
+
                 <div class="box warning">
                     <h4>Piège #4 : Sur-orchestration</h4>
                     <p style="font-size: 1.1em;">Trop d'agents = complexité ingérable</p>
-                    <p style="font-size: 1em; margin-top: 15px;"><strong>Solution :</strong> Commencer simple, diviser si justifié</p>
+                    <p style="font-size: 1em; margin-top: 15px;"><strong>Solution :</strong> Commencer simple, diviser
+                        si justifié</p>
                 </div>
             </div>
 
@@ -1171,7 +853,7 @@ var response = await workflow.RunAsync(thread, userMessage);</div>
                 <span class="devday-logo">DEVDAY 2025</span>
             </div>
             <h2>Ressources pour Aller Plus Loin <span class="emoji">📚</span></h2>
-            
+
             <h3>Documentation officielle</h3>
             <ul style="font-size: 1.4em;">
                 <li><strong>Microsoft Agent Framework :</strong> docs.microsoft.com/azure/ai</li>
@@ -1203,11 +885,13 @@ var response = await workflow.RunAsync(thread, userMessage);</div>
                 <span class="devday-logo">DEVDAY 2025</span>
             </div>
             <h2>Conclusion <span class="emoji">🎯</span></h2>
-            
-            <div class="box" style="background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%); color: white; padding: 50px; text-align: center; border: 4px solid #e63946;">
+
+            <div class="box"
+                style="background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%); color: white; padding: 50px; text-align: center; border: 4px solid #e63946;">
                 <h3 style="color: #ffcc00; font-size: 2.5em; margin-bottom: 25px;">Plan, Do, Check… Agent !</h3>
                 <p style="color: white; font-size: 1.5em; line-height: 1.8;">
-                    Vous avez maintenant les clés pour construire des agents intelligents avec le <strong>Microsoft Agent Framework</strong>
+                    Vous avez maintenant les clés pour construire des agents intelligents avec le <strong>Microsoft
+                        Agent Framework</strong>
                 </p>
             </div>
 
@@ -1221,7 +905,7 @@ var response = await workflow.RunAsync(thread, userMessage);</div>
                         <li>Patterns d'orchestration</li>
                     </ul>
                 </div>
-                
+
                 <div class="box success">
                     <h4>✅ Pratiques terrain</h4>
                     <ul style="margin-left: 20px; font-size: 1.1em;">
@@ -1252,9 +936,12 @@ var response = await workflow.RunAsync(thread, userMessage);</div>
                     <p style="font-size: 1.5em;"><strong>Adrien Clerbois</strong></p>
                     <p style="font-size: 1.3em; margin-top: 20px; color: #e63946;">Microsoft MVP</p>
                     <div style="margin-top: 40px;">
-                        <p style="font-size: 1.3em; margin-top: 15px;">📧 <a href="https://adrien.social">adrien.social</a></p>
-                        <p style="font-size: 1.3em; margin-top: 15px;">🐙 <a href="https://github.com/aclerbois"></a>github.com/aclerbois</a></p>
-                        <p style="font-size: 1.3em; margin-top: 15px;">💼 <a href="https://linkedin.com/in/aclerbois">linkedin.com/in/aclerbois</a></p>
+                        <p style="font-size: 1.3em; margin-top: 15px;">📧 <a
+                                href="https://adrien.social">adrien.social</a></p>
+                        <p style="font-size: 1.3em; margin-top: 15px;">🐙 <a
+                                href="https://github.com/aclerbois"></a>github.com/aclerbois</a></p>
+                        <p style="font-size: 1.3em; margin-top: 15px;">💼 <a
+                                href="https://linkedin.com/in/aclerbois">linkedin.com/in/aclerbois</a></p>
                     </div>
                 </div>
             </div>
@@ -1295,17 +982,17 @@ var response = await workflow.RunAsync(thread, userMessage);</div>
             // while reducing CPU usage compared to uncapped mousemove events (~100+ events/sec)
             let lastCheckTime = 0;
             const throttleDelay = 50;
-            
+
             document.addEventListener('mousemove', (e) => {
                 const now = Date.now();
                 if (now - lastCheckTime < throttleDelay) return;
-                
+
                 lastCheckTime = now;
-                
+
                 // Capture event coordinates before any async operations
                 const mouseX = e.clientX;
                 const mouseY = e.clientY;
-                
+
                 // Check if cursor is in the bottom-right area
                 if (mouseY > bottomThreshold && mouseX > rightThreshold) {
                     navigation.classList.add('visible');
@@ -1319,7 +1006,7 @@ var response = await workflow.RunAsync(thread, userMessage);</div>
             slides[currentSlide].classList.remove('active');
             currentSlide = (n + totalSlides) % totalSlides;
             slides[currentSlide].classList.add('active');
-            
+
             document.getElementById('prevBtn').disabled = currentSlide === 0;
             document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
         }
@@ -1336,4 +1023,5 @@ var response = await workflow.RunAsync(thread, userMessage);</div>
         showSlide(0);
     </script>
 </body>
+
 </html>
