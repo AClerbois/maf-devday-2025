@@ -1,43 +1,29 @@
 
-<!-- Slide 11: CHECK - Introduction -->
+<!-- Slide 11: CHECK - Chat History (Short Term Memory) -->
 <div class="slide">
     <div class="devday-header">
         <span class="devday-logo">DEVDAY 2025</span>
     </div>
-    <h2>CHECK — La Mémoire et l'État <span class="emoji">💾</span></h2>
+    <h2>CHECK — Chat History (Short Term Memory) <span class="emoji">💾</span></h2>
 
-    <div class="diagram">
-        Conversation <span class="arrow">→</span> <span class="highlight">AgentThread</span> (court terme) <span
-            class="arrow">→</span> <span class="highlight">Memory</span> (long terme) <span
-            class="arrow">→</span> Contexte Enrichi
+    <h3>Storage In-Memory par défaut</h3>
+    <div class="box info">
+        <p>Quand le service ne supporte pas le stockage in-service (ex: OpenAI Chat Completion), MAF stocke l'historique dans l'<code>AgentThread</code>.</p>
     </div>
 
-    <h3>Deux types de mémoire dans MAF</h3>
-    <div class="two-column">
-        <div class="box">
-            <h4>AgentThread <span class="badge">Court terme</span></h4>
-            <p>Historique de conversation de la session en cours</p>
-            <ul style="margin-left: 20px; font-size: 1em; margin-top: 10px;">
-                <li>Mémoire "volatile"</li>
-                <li>Persiste entre invocations</li>
-                <li>Gère l'état conversationnel</li>
-            </ul>
-        </div>
+    <div class="code-block" style="margin-top: 30px;">AIAgent agent = new OpenAIClient("&lt;your_api_key&gt;")
+    .GetChatClient(modelName)
+    .CreateAIAgent("Tu es un assistant DevDay.", "Assistant");
 
-        <div class="box">
-            <h4>Memory <span class="badge">Long terme</span></h4>
-            <p>Base de connaissances vectorisée</p>
-            <ul style="margin-left: 20px; font-size: 1em; margin-top: 10px;">
-                <li>Stockage sémantique</li>
-                <li>Rappel par similarité</li>
-                <li>Évite l'explosion du contexte</li>
-            </ul>
-        </div>
+AgentThread thread = agent.GetNewThread();
+
+Console.WriteLine(await agent.RunAsync("Raconte-moi une blague.", thread));
+
+// L'historique complet est stocké dans le thread
+IList&lt;ChatMessage&gt;? messages = thread.GetService&lt;IList&lt;ChatMessage&gt;&gt;();
     </div>
 
-    <div class="box success" style="margin-top: 40px;">
-        <p><strong>Différence clé :</strong><br>
-            • AgentThread = "je me souviens de ce qu'on vient de dire"<br>
-            • Memory = "je me souviens de ce qui est pertinent pour ta question"</p>
+    <div class="box success" style="margin-top: 30px;">
+        <p><strong>💡 Clé :</strong> L'historique complet + nouveaux messages sont envoyés au service à chaque invocation, permettant une conversation naturelle.</p>
     </div>
 </div>

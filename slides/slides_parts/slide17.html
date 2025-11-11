@@ -1,47 +1,49 @@
 
-<!-- Slide 17: AGENT - Code Workflow -->
+<!-- Slide 17: AGENT - Orchestration Patterns (Part 1) -->
 <div class="slide">
     <div class="devday-header">
         <span class="devday-logo">DEVDAY 2025</span>
     </div>
-    <h2>AGENT — Construire un Workflow Multi-Agents</h2>
+    <h2>AGENT — Multi-Agent Orchestration Patterns (1/2)</h2>
 
-    <div class="code-block">// Définir les agents
-        var triageAgent = new ChatCompletionAgent(client)
-        {
-        Name = "Triage",
-        Instructions = "Catégorise les demandes: technical, billing, other"
-        };
+    <div class="two-column" style="gap: 30px;">
+        <div>
+            <div class="card">
+                <h4>Sequential (Séquentiel)</h4>
+                <p>Les executors s'exécutent l'un après l'autre dans un ordre prédéfini.</p>
+                <div class="" style="margin-top: 15px;">
+                    <img src="assets/wf-sequentials.svg" style="max-width: 100%;" />
+                </div>
+                <p style="font-size: 1em; margin-top: 15px;  text-align: left; font-weight: bold;">Exemples d'usage :</p>
+                <ul style="font-size: 0.95em; margin-left: 20px;  text-align: left; color: white; line-height: 1.2;">
+                    <li style="color: white;">Pipeline de validation : Triage → Analyse → Validation</li>
+                    <li style="color: white;">Traitement de commande : Stock → Prix → Paiement</li>
+                </ul>
+            </div>
+            <div class="box info" style="margin-top: 15px;">
+                <p><strong>💡 Quand l'utiliser :</strong> Quand chaque étape dépend du résultat de la précédente.</p>
+            </div>
+        </div>
+        <div>
+            <div class="card">
+                <h4>Concurrent (Parallèle)</h4>
+                <p>Plusieurs executors s'exécutent en parallèle pour traiter simultanément.</p>
+                <div class="" style="margin-top: 15px;">
+                    <img src="assets/wf-concurrent.svg" style="max-width: 100%;" />
+                </div>
+                <p style="font-size: 1em; margin-top: 15px; text-align: left; color: white;font-weight: bold;">Exemples d'usage :</p>
+                <ul style="font-size: 0.95em; margin-left: 20px; text-align: left; line-height: 1.2;">
+                    <li style="color: white;">Recherche multi-sources : Web + Docs + DB en //</li>
+                    <li style="color: white;">Analyse sentiment : Texte + Audio + Métadonnées</li>
+                </ul>
+            </div>
+            <div class="box info" style="margin-top: 15px;">
+                <p><strong>💡 Quand l'utiliser :</strong> Quand les tâches sont indépendantes et peuvent gagner en vitesse.</p>
+            </div>
+        </div>
+    </div>
 
-        var techAgent = new ChatCompletionAgent(client)
-        {
-        Name = "TechSupport",
-        Instructions = "Répond aux questions techniques",
-        Kernel = kernelWithRAG
-        };
-
-        var billingAgent = new ChatCompletionAgent(client)
-        {
-        Name = "Billing",
-        Instructions = "Gère les questions de facturation",
-        Kernel = kernelWithDatabase
-        };
-
-        // Construire le workflow
-        var workflow = new AgentWorkflowBuilder()
-        .AddAgent(triageAgent)
-        .AddTransition(
-        from: triageAgent,
-        to: techAgent,
-        condition: result => result.Category == "technical"
-        )
-        .AddTransition(
-        from: triageAgent,
-        to: billingAgent,
-        condition: result => result.Category == "billing"
-        )
-        .Build();
-
-        // Exécuter
-        var response = await workflow.RunAsync(thread, userMessage);</div>
+    <div class="box success" style="margin-top: 40px;">
+        <p><strong>💡 Conseil :</strong> Commencez toujours avec Sequential. N'ajoutez Concurrent que si vous avez mesuré un gain de performance réel.</p>
+    </div>
 </div>

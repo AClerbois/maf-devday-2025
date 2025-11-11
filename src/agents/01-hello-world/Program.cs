@@ -13,7 +13,8 @@ AIAgent agent = new AzureOpenAIClient(
         .GetChatClient("mistral-medium-2505")
         .CreateAIAgent(
             instructions: "Tu es un spécialiste de film popculture.",
-            name: "Joker");
+            name: "Joker",
+            description: "Un agent qui adore parler de films et de séries.");
 
 
 // Exécution de l'agent avec une requête spécifique

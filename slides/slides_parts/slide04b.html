@@ -1,0 +1,32 @@
+<!-- Slide 4b: Installation de MAF -->
+<div class="slide">
+    <div class="devday-header">
+        <span class="devday-logo">DEVDAY 2025</span>
+    </div>
+    <h2>Installation de Microsoft Agent Framework <span class="emoji">⚙️</span></h2>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: flex-start;">
+        <div>
+            <h3>Prérequis</h3>
+            <ul style="margin-left: 0; padding-left: 18px; font-size: 1.1em;">
+                <li><strong>.NET 8.0 SDK</strong> ou version ultérieure<br><code style='font-size:0.9em;'>dotnet --version</code></li>
+                <li>Ressource <strong>Azure OpenAI</strong> avec un modèle déployé<br>(ex: <code>gpt-4o-mini</code>)</li>
+                <li>Azure CLI installé et authentifié<br><code style='font-size:0.9em;'>az login</code></li>
+                <li>Rôle <strong>Cognitive Services OpenAI User</strong> ou <strong>Contributor</strong> sur la ressource</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Installation des packages NuGet</h3>
+            <div class="code-block" style="font-size: 1.1em; padding: 24px; margin-bottom: 18px;">
+dotnet add package Azure.AI.OpenAI --prerelease<br>
+dotnet add package Azure.Identity<br>
+dotnet add package Microsoft.Agents.AI.OpenAI --prerelease
+            </div>
+            <div class="box info" style="margin-top: 0;">
+                <p><strong>💡 Note :</strong> Les packages sont disponibles sur <a
+                        href="https://www.nuget.org/profiles/MicrosoftAgentFramework" target="_blank"
+                        style="color: #e63946; text-decoration: underline;">NuGet Gallery</a></p>
+            </div>
+        </div>
+    </div>
+</div>

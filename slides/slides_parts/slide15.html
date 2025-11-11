@@ -1,31 +1,26 @@
 
-<!-- Slide 15: AGENT - Introduction -->
+<!-- Slide 15: AGENT - Core Concepts Workflows -->
 <div class="slide">
     <div class="devday-header">
         <span class="devday-logo">DEVDAY 2025</span>
     </div>
-    <h2>AGENT — L'Orchestration avec Workflows <span class="emoji">🎭</span></h2>
+    <h2>AGENT — Workflows : Core Concepts <span class="emoji">🔄</span></h2>
 
-    <div class="box info">
-        <p style="font-size: 1.5em;">Un agent seul est puissant. Plusieurs agents orchestrés sont <span
-                class="highlight">exponentiellement plus capables</span>.</p>
+    <h3>Workflow vs AI Agent</h3>
+    <div class="two-column" style="gap: 30px;">
+        <div class="box">
+            <h4>🤖 AI Agent</h4>
+            <p>Piloté par un LLM, étapes <strong>dynamiques</strong> déterminées par le contexte et les tools disponibles.</p>
+            <img src="https://learn.microsoft.com/en-us/agent-framework/user-guide/workflows/resources/images/ai-agent.png" alt="AI Agent" style="max-width: 100%; margin-top: 15px; border-radius: 12px;">
+        </div>
+        <div class="box">
+            <h4>🔄 Workflow</h4>
+            <p>Séquence <strong>prédéfinie</strong> d'opérations incluant des agents, interactions humaines, et systèmes externes.</p>
+            <img src="https://learn.microsoft.com/en-us/agent-framework/user-guide/workflows/resources/images/workflows-overview.png" alt="Workflows Overview" style="max-width: 100%; margin-top: 15px; border-radius: 12px;">
+        </div>
     </div>
 
-    <h3 style="margin-top: 40px;">Le pattern clé du MAF : AgentWorkflow</h3>
-    <ul>
-        <li><strong>Architecture à base de graphes</strong>
-            <ul>
-                <li>Nœuds = agents ou étapes</li>
-                <li>Edges = transitions conditionnelles</li>
-                <li>Exécution parallèle ou séquentielle</li>
-            </ul>
-        </li>
-        <li><strong>Checkpointing :</strong> Sauvegarder l'état pour reprendre plus tard</li>
-        <li><strong>Routage dynamique :</strong> Décisions basées sur les résultats</li>
-    </ul>
-
-    <div class="diagram" style="margin-top: 40px;">
-        User Input <span class="arrow">→</span> Agent A <span class="arrow">⤴</span> Agent B<br>
-        <span class="arrow">⤷</span> Agent C <span class="arrow">→</span> Final Response
+    <div class="box success" style="margin-top: 30px;">
+        <p><strong>💡 Clé :</strong> Les workflows permettent un contrôle explicite de l'exécution et peuvent orchestrer plusieurs agents pour gérer des processus complexes.</p>
     </div>
 </div>

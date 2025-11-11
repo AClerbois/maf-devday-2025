@@ -1,0 +1,45 @@
+
+
+<!-- Slide 14b: CHECK - Best Practices Memory -->
+<div class="slide">
+    <div class="devday-header">
+        <span class="devday-logo">DEVDAY 2025</span>
+    </div>
+    <h2>CHECK — Best Practices : Gestion de la Mémoire <span class="emoji">✅</span></h2>
+
+    <div class="box success">
+        <h3 style="color: #2a9d8f; margin-top: 0;">🎯 Stratégies recommandées</h3>
+        <ul style="font-size: 1.2em; line-height: 1.8;">
+            <li><strong>Court terme (Chat History) :</strong> Utilisez <code>InMemoryChatMessageStore</code> avec réduction pour éviter l'explosion du contexte</li>
+            <li><strong>Stockage externe :</strong> Pour la production, implémentez un <code>ChatMessageStore</code> personnalisé (Redis, SQL, etc.)</li>
+            <li><strong>Long terme :</strong> Créez un <code>AIContextProvider</code> pour extraire et injecter des informations pertinentes</li>
+            <li><strong>Persistance :</strong> Sérialisez systématiquement l'<code>AgentThread</code> pour survivre aux redémarrages</li>
+        </ul>
+    </div>
+
+    <div class="two-column" style="margin-top: 40px;">
+        <div class="box warning">
+            <h4>❌ À éviter</h4>
+            <ul style="font-size: 1em; margin-left: 20px;">
+                <li>Laisser l'historique grossir sans limite</li>
+                <li>Ne pas sérialiser le thread entre sessions</li>
+                <li>Stocker tout en mémoire en production</li>
+                <li>Négliger la gestion du contexte</li>
+            </ul>
+        </div>
+
+        <div class="box success">
+            <h4>✅ À faire</h4>
+            <ul style="font-size: 1em; margin-left: 20px;">
+                <li>Configurer une stratégie de réduction</li>
+                <li>Utiliser un store externe pour la prod</li>
+                <li>Implémenter des context providers ciblés</li>
+                <li>Tester la sérialisation/désérialisation</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="box info" style="margin-top: 30px;">
+        <p><strong>💡 Règle d'or :</strong> Court terme dans <code>AgentThread</code>, long terme via <code>AIContextProvider</code>, et toujours persister l'état complet du thread.</p>
+    </div>
+</div>

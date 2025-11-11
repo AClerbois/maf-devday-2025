@@ -1,34 +1,37 @@
 
 
-<!-- Slide 12: CHECK - Memory Deep Dive -->
+<!-- Slide 12: CHECK - Chat History Reduction & 3rd Party Storage -->
 <div class="slide">
     <div class="devday-header">
         <span class="devday-logo">DEVDAY 2025</span>
     </div>
-    <h2>CHECK — Le système Memory en détail</h2>
+    <h2>CHECK — Réduction & Stockage Externe</h2>
 
-    <h3>Le problème sans Memory</h3>
-    <div class="box warning">
-        <p>Sans Memory, tout va dans AgentThread → explosion des tokens → perte de contexte ancien → coûts
-            incontrôlables</p>
+    <h3>Chat History Reduction avec In-Memory</h3>
+    <div class="box warning" style="margin-bottom: 20px;">
+        <p><strong>⚠️ Problème :</strong> L'historique peut exploser et dépasser la limite de contexte du modèle.</p>
     </div>
 
-    <h3 style="margin-top: 40px;">Comment fonctionne Memory ?</h3>
-    <ol style="font-size: 1.4em;">
-        <li><strong>Vectorisation :</strong> Les faits/conversations importants sont convertis en embeddings
-        </li>
-        <li><strong>Stockage :</strong> Base vectorielle (Azure AI Search, Qdrant, etc.)</li>
-        <li><strong>Rappel sémantique :</strong> Seules les infos pertinentes sont injectées dans le contexte
-        </li>
-    </ol>
+    <div class="code-block" style="font-size: 0.85em;">AIAgent agent = new OpenAIClient("&lt;your_api_key&gt;")
+    .GetChatClient(modelName)
+    .CreateAIAgent(new ChatClientAgentOptions
+    {
+        Name = "Assistant",
+        Instructions = "Tu es un assistant DevDay.",
+        ChatMessageStoreFactory = ctx => new InMemoryChatMessageStore(
+            new MessageCountingChatReducer(10), // Garde 10 messages max
+            ctx.SerializedState,
+            ctx.JsonSerializerOptions,
+            InMemoryChatMessageStore.ChatReducerTriggerEvent.AfterMessageAdded)
+    });
+    </div>
 
-    <div class="diagram" style="margin-top: 40px;">
-        Question utilisateur<br>
-        <span class="arrow">↓</span><br>
-        Recherche vectorielle dans Memory<br>
-        <span class="arrow">↓</span><br>
-        Top 5 faits pertinents ajoutés au contexte<br>
-        <span class="arrow">↓</span><br>
-        Agent raisonne avec contexte enrichi
+    <h3 style="margin-top: 30px;">3rd Party Chat History Storage</h3>
+    <div class="box info">
+        <p>Implémentez <code>ChatMessageStore</code> pour stocker l'historique dans une base externe (Redis, SQL, etc.).</p>
+    </div>
+
+    <div class="box success" style="margin-top: 20px;">
+        <p><strong>💡 Note :</strong> La réduction n'est supportée qu'avec <code>InMemoryChatMessageStore</code>. Pour les services avec stockage in-service ou 3rd party, c'est au service/store de gérer la taille.</p>
     </div>
 </div>

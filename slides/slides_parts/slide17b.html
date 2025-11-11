@@ -1,0 +1,51 @@
+<!-- Slide 17b: AGENT - Orchestration Patterns (Part 2) -->
+<div class="slide">
+    <div class="devday-header">
+        <span class="devday-logo">DEVDAY 2025</span>
+    </div>
+    <h2>AGENT — Multi-Agent Orchestration Patterns (2/2)</h2>
+
+    <div class="two-column" style="gap: 30px;">
+        <div>
+            <div class="card">
+                <h4>Hand-off (Relais)</h4>
+                <p>Transfert de responsabilité entre agents spécialisés selon le contexte.</p>
+                <div class="" style="margin-top: 15px;">
+                    <img src="assets/wf-handoff.svg" style="max-width: 100%;" />
+                </div>
+                <p style="font-size: 1em; margin-top: 15px; font-weight: bold;">Exemples d'usage :</p>
+                <ul style="font-size: 0.95em; margin-left: 20px;text-align: left; color: white; line-height: 1.2;">
+                    <li style="color: white;">Support multi-niveaux : L1 (FAQ) → L2 (Expert) → L3</li>
+                    <li style="color: white;">Triage : Initial → Agent spécialisé (Tech/Billing/HR)</li>
+                </ul>
+            </div>
+            <div class="box info" style="margin-top: 15px;">
+                <p><strong>💡 Quand l'utiliser :</strong> Quand différents niveaux d'expertise sont nécessaires selon le
+                    contexte.</p>
+            </div>
+        </div>
+        <div>
+            <div class="card">
+                <h4>Magentic (Magnétique)</h4>
+                <p>Orchestration dynamique où les agents se coordonnent via un hub central.</p>
+                <div class="" style="margin-top: 15px;">
+                    <img src="assets/wf-magentic.svg" style="max-width: 100%;" />
+                </div>
+                <p style="font-size: 1em; margin-top: 15px; text-align: left; color: white  ; font-weight: bold;">Exemples d'usage :</p>
+                <ul style="font-size: 0.95em; margin-left: 20px;text-align: left; color: white; line-height: 1.2;">
+                    <li style="color: white;">Collaboration : Hub coordonne Legal + Finance + Tech</li>
+                    <li style="color: white;">Recommandation : Hub agrège Marketing + Sales + Support</li>
+                </ul>
+            </div>
+            <div class="box info" style="margin-top: 15px;">
+                <p><strong>💡 Quand l'utiliser :</strong> Quand la coordination entre agents change selon le contexte et
+                    nécessite un orchestrateur central.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="box warning" style="margin-top: 40px;">
+        <p><strong>⚠️ Attention :</strong> Hand-off et Magentic sont plus complexes. Assurez-vous d'avoir une vraie
+            raison métier avant de les implémenter.</p>
+    </div>
+</div>

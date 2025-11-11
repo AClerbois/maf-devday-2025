@@ -1,34 +1,33 @@
 <!-- Slide 6: PLAN - Code -->
-<div class="slide">
+<div class="slide" style="overflow: hidden;">
     <div class="devday-header">
         <span class="devday-logo">DEVDAY 2025</span>
     </div>
     <h2>PLAN — Configuration d'un Agent</h2>
 
-    <div class="code-block">var agent = new ChatCompletionAgent(chatClient)
-        {
-        Instructions = @"Tu es un assistant spécialisé
-        en recherche technique.
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: flex-start;">
+        <div>
+            <div class="code-block">AIAgent agent = new AzureOpenAIClient(
+        new Uri("https://devday-2025-maf.openai.azure.com/"),
+        new AzureCliCredential()
+    )
+    .GetChatClient("mistral-medium-2505")
+    .CreateAIAgent(
+        instructions: "Tu es un spécialiste de film popculture.",
+        name: "Joker", 
+        description: "Un agent qui adore parler de films et de séries."
+    );
+</div>
 
-        Ton rôle :
-        - Analyser les questions techniques
-        - Décomposer en sous-problèmes
-        - Chercher dans la documentation
-        - Synthétiser clairement
-
-        Règles :
-        - Cite toujours tes sources
-        - Admets quand tu ne sais pas
-        - Reste concis",
-
-        Name = "ResearchAgent",
-        Description = "Agent de recherche technique"
-        };</div>
-
-    <h3 style="margin-top: 30px;">Points clés</h3>
-    <ul>
-        <li><strong>Instructions</strong> : Le "cerveau" de l'agent, définit sa logique de raisonnement</li>
-        <li><strong>Name</strong> : Identifier l'agent dans les workflows multi-agents</li>
-        <li><strong>Description</strong> : Aide d'autres agents à comprendre quand l'utiliser</li>
-    </ul>
+            <h3 style="margin-top: 30px;">Points clés</h3>
+            <ul>
+                <li><strong>Instructions</strong> : Le "cerveau" de l'agent, définit sa logique de raisonnement</li>
+                <li><strong>Name</strong> : Identifier l'agent dans les workflows multi-agents</li>
+                <li><strong>Description</strong> : Aide d'autres agents à comprendre quand l'utiliser</li>
+            </ul>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: center; min-height: 320px;">
+            <img id="slide16-gif" src="assets/hello-world.gif" data-gif="assets/hello-world.gif" alt="Démo Hello World" style="width: 100%; border-radius: 18px; box-shadow: 0 4px 24px #e6394622; background: #f8f9fa; border: 2px solid #e63946; object-fit: contain;" />
+        </div>
+    </div>
 </div>

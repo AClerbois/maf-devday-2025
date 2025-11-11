@@ -1,43 +1,41 @@
 
 <!-- Slide 9: DO - Code -->
-<div class="slide">
+<div class="slide" style="overflow: hidden;">
     <div class="devday-header">
         <span class="devday-logo">DEVDAY 2025</span>
     </div>
     <h2>DO — Définir et Enregistrer un Tool</h2>
 
-    <div class="code-block">using Microsoft.SemanticKernel;
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: flex-start;">
+        <div>
+            <div class="code-block">// 1. Définir le Tool (SpeakersTools.cs)
+[Description("Donne des infos sur un speaker")]
+public static SpeakerInfo GetSpeakerInfo(
+    [Description("Nom du speaker")] string name)
+{
+    // ...recherche dans une liste...
+    return foundSpeaker;
+}
 
-        public class WeatherTools
-        {
-        [KernelFunction]
-        [Description("Récupère la météo actuelle pour une ville")]
-        public async Task&lt;string&gt; GetWeather(
-        [Description("Nom de la ville")] string city)
-        {
-        // Appel à une API météo
-        var weather = await _weatherApi.GetCurrentAsync(city);
-        return $"À {city}: {weather.Condition}, {weather.Temp}°C";
-        }
+// 2. Enregistrer le Tool dans l’Agent (Program.cs)
+var agent = new AzureOpenAIClient(...)
+    .GetChatClient("gpt-4o-mini")
+    .CreateAIAgent(
+        instructions: "Tu es un assistant DevDay.",
+        tools: [AIFunctionFactory.Create(SpeakersTools.GetSpeakerInfo)]);
 
-        [KernelFunction]
-        [Description("Prévisions météo sur 7 jours")]
-        public async Task&lt;string&gt; GetForecast(string city)
-        {
-        var forecast = await _weatherApi.GetForecastAsync(city);
-        return FormatForecast(forecast);
-        }
-        }
-
-        // Enregistrer dans l'agent
-        var kernel = Kernel.CreateBuilder()
-        .AddAzureOpenAIChatCompletion(...)
-        .Build();
-
-        kernel.Plugins.AddFromObject(new WeatherTools());
-
-        var agent = new ChatCompletionAgent(chatClient)
-        {
-        Kernel = kernel
-        };</div>
+// 3. Utilisation automatique
+var result = await agent.RunAsync("Qui est Adrien ?");
+Console.WriteLine(result);
+            </div>
+            <div class="box info" style="margin-top: 30px;">
+                <p><strong>💡 Note :</strong> L’agent MAF détecte quand utiliser le tool grâce à la description et l’intention de la question.</p>
+            </div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: center; ">
+            <div class="demo-gif-container">
+                <img id="use-tool-gif" src="assets/UseTool.gif" alt="Démo Tool MAF" style="max-width: 100%; border-radius: 18px; box-shadow: 0 2px 12px #0002; background: #f8f9fa; border: 2px solid #e63946;" loading="lazy" />
+            </div>
+        </div>
+    </div>
 </div>

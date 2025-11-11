@@ -1,41 +1,39 @@
 
-<!-- Slide 14: CHECK - Piège #3 -->
+<!-- Slide 14: CHECK - AgentThread Serialization -->
 <div class="slide">
     <div class="devday-header">
         <span class="devday-logo">DEVDAY 2025</span>
     </div>
-    <h2>CHECK — Piège #3 : Ne Pas Gérer le Contexte <span class="emoji">⚠️</span></h2>
+    <h2>CHECK — Sérialisation de l'AgentThread <span class="emoji">💾</span></h2>
 
-    <div class="two-column">
-        <div class="box warning">
-            <h4>❌ Sans Memory</h4>
-            <p>Tout dans AgentThread<br>
-                → Explosion tokens<br>
-                → Perte infos anciennes<br>
-                → Coûts incontrôlables</p>
-        </div>
-
-        <div class="box warning">
-            <h4>❌ Sans AgentThread</h4>
-            <p>L'agent oublie tout<br>
-                → Pas de cohérence<br>
-                → Répétitions<br>
-                → Expérience frustrante</p>
-        </div>
+    <div class="box warning">
+        <p><strong>⚠️ Problème :</strong> Comment persister une conversation entre redémarrages d'application ou sessions utilisateur ?</p>
     </div>
 
-    <div class="box success" style="margin-top: 40px;">
-        <h3 style="color: #2a9d8f; margin-top: 0;">✅ Les deux ensemble</h3>
-        <ul>
-            <li><strong>AgentThread</strong> pour cohérence conversationnelle immédiate (10 derniers messages)
-            </li>
-            <li><strong>Memory</strong> pour rappel sémantique des informations anciennes</li>
-            <li><strong>Stratégie :</strong> Summariser régulièrement le thread et archiver dans Memory</li>
-        </ul>
+    <h3 style="margin-top: 30px;">Solution : Serialize / Deserialize</h3>
+    <div class="code-block" style="font-size: 0.85em;">// Créer un agent et un thread
+AIAgent agent = new OpenAIClient("&lt;api_key&gt;")
+    .GetChatClient("gpt-4o-mini")
+    .CreateAIAgent("Tu es un assistant DevDay.");
+
+AgentThread thread = agent.GetNewThread();
+await agent.RunAsync("Bonjour, je m'appelle Alice.", thread);
+
+// Sérialiser le thread pour le persister
+JsonElement serializedThread = thread.Serialize();
+// Stocker dans un fichier/DB...
+File.WriteAllText("thread.json", serializedThread.ToString());
+
+// Plus tard... Restaurer le thread
+string json = File.ReadAllText("thread.json");
+AgentThread resumedThread = AIAgent.DeserializeThread(
+    JsonDocument.Parse(json).RootElement);
+
+// Continuer la conversation avec le contexte complet
+await agent.RunAsync("Quel est mon nom ?", resumedThread);
     </div>
 
-    <div class="diagram" style="margin-top: 40px;">
-        Message 1-10: AgentThread <span class="arrow">→</span> Summarize <span class="arrow">→</span> Memory<br>
-        Message 11-20: AgentThread <span class="arrow">→</span> Recall from Memory si pertinent
+    <div class="box success" style="margin-top: 20px;">
+        <p><strong>💡 Important :</strong> Toujours sérialiser/désérialiser l'<code>AgentThread</code> complet (pas juste l'historique). Il contient aussi l'état des context providers.</p>
     </div>
 </div>

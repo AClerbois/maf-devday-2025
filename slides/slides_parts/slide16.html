@@ -1,36 +1,33 @@
 
-<!-- Slide 16: AGENT - Patterns -->
+<!-- Slide 16: AGENT - Key Features & Core Concepts -->
 <div class="slide">
     <div class="devday-header">
         <span class="devday-logo">DEVDAY 2025</span>
     </div>
-    <h2>AGENT — Les Patterns d'Orchestration</h2>
+    <h2>AGENT — Key Features & Core Concepts</h2>
 
+    <h3>Fonctionnalités clés des Workflows</h3>
+    <ul style="font-size: 1.2em; line-height: 1.8;">
+        <li><strong>Type Safety :</strong> Typage fort pour valider le flux des messages entre composants</li>
+        <li><strong>Flexible Control Flow :</strong> Architecture à base de graphes (executors + edges)</li>
+        <li><strong>External Integration :</strong> Patterns request/response pour APIs externes et human-in-the-loop</li>
+        <li><strong>Checkpointing :</strong> Sauvegarder l'état pour reprendre les processus long-running</li>
+        <li><strong>Multi-Agent Orchestration :</strong> Patterns built-in (sequential, concurrent, hand-off, magentic)</li>
+    </ul>
+
+    <h3 style="margin-top: 40px;">Core Concepts</h3>
     <div class="grid-3">
         <div class="card">
-            <h4>Handoff</h4>
-            <p>Relais entre agents spécialisés</p>
-            <p style="font-size: 0.9em; margin-top: 10px;">Triage → Expert → Escalation</p>
+            <h4>Executors</h4>
+            <p>Unités de traitement (agents ou logique custom) qui reçoivent des messages, exécutent des tâches, et produisent des outputs.</p>
         </div>
         <div class="card">
-            <h4>Concurrent</h4>
-            <p>Plusieurs agents en parallèle</p>
-            <p style="font-size: 0.9em; margin-top: 10px;">Research + Analysis + Summary</p>
+            <h4>Edges</h4>
+            <p>Connexions entre executors définissant le flux des messages. Peuvent inclure des conditions pour le routage.</p>
         </div>
         <div class="card">
-            <h4>Conditional Routing</h4>
-            <p>Routage dynamique selon résultats</p>
-            <p style="font-size: 0.9em; margin-top: 10px;">if confidence > 0.8 → Auto<br>else → Human</p>
+            <h4>Workflows</h4>
+            <p>Graphes dirigés composés d'executors et edges, définissant le processus global avec routage conditionnel.</p>
         </div>
-    </div>
-
-    <h3 style="margin-top: 50px;">Exemple : Support Client Automatisé</h3>
-    <div class="diagram">
-        User Question<br>
-        <span class="arrow">↓</span><br>
-        <strong>TriageAgent</strong> (catégorise: technique/facturation/autre)<br>
-        <span class="arrow">⤴</span> technique → <strong>TechAgent</strong> (RAG sur docs)<br>
-        <span class="arrow">⤴</span> facturation → <strong>BillingAgent</strong> (accès DB)<br>
-        <span class="arrow">⤴</span> confidence < 0.7 → <strong>EscalationAgent</strong> (handoff humain)
     </div>
 </div>

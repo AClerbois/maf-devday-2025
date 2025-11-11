@@ -29,7 +29,7 @@ body {
     height: 1080px;
     border-radius: 0;
     box-shadow: none;
-    padding: 80px 100px;
+    padding: 40px 90px;
     display: none;
     flex-direction: column;
     position: relative;
@@ -101,7 +101,7 @@ body {
 h1 {
     font-size: 4.5em;
     color: #1a1a2e;
-    margin-bottom: 30px;
+     margin-bottom: 10px;
     line-height: 1.2;
     font-weight: 900;
 }
@@ -109,7 +109,7 @@ h1 {
 h2 {
     font-size: 3em;
     color: #e63946;
-    margin-bottom: 40px;
+     margin-bottom: 18px;
     border-bottom: 5px solid #e63946;
     padding-bottom: 15px;
     font-weight: 700;
@@ -119,7 +119,7 @@ h3 {
     font-size: 2em;
     color: #0f3460;
     margin-top: 40px;
-    margin-bottom: 20px;
+     margin-bottom: 10px;
     font-weight: 700;
 }
 
@@ -251,7 +251,7 @@ button:disabled {
 }
 
 .emoji {
-    font-size: 2em;
+    font-size: 1em;
 }
 
 .center {

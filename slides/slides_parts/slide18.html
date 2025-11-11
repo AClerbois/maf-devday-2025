@@ -1,47 +1,52 @@
-
-<!-- Slide 18: AGENT - Piège #4 -->
+<!-- Slide 18: AGENT - Code Example Workflow -->
 <div class="slide">
     <div class="devday-header">
         <span class="devday-logo">DEVDAY 2025</span>
     </div>
-    <h2>AGENT — Piège #4 : Sur-Orchestration <span class="emoji">⚠️</span></h2>
+    <h2>AGENT — Exemple : Workflow Séquentiel</h2>
 
-    <div class="box warning">
-        <h3 style="color: #d62828; margin-top: 0;">❌ Trop d'agents = Complexité ingérable + Coûts explosifs</h3>
-        <p>Chaque agent ajouté multiplie les interactions, les points de défaillance, et la difficulté de debug
-        </p>
-    </div>
+    <div class="content">
+        <div class="code-block" style="font-size: 1em; width: 65%; float: left;">
+// Définir des executors simples
+public class UppercaseExecutor : IWorkflowExecutor&lt;string, string&gt;
+{
+    public async Task&lt;string&gt; ExecuteAsync(string input, CancellationToken ct)
+    {
+        return input.ToUpper();
+    }
+}
 
-    <h3 style="margin-top: 40px;">Principes de simplicité</h3>
-    <div class="two-column">
-        <div class="box">
-            <h4>Commencer simple</h4>
-            <ul style="margin-left: 20px; font-size: 1em;">
-                <li>1 agent d'abord</li>
-                <li>Ajouter un 2e seulement si nécessaire</li>
-                <li>Maximum 3-5 agents par workflow</li>
-            </ul>
+public class ReverseExecutor : IWorkflowExecutor&lt;string, string&gt;
+{
+    public async Task&lt;string&gt; ExecuteAsync(string input, CancellationToken ct)
+    {
+        return new string(input.Reverse().ToArray());
+    }
+}
+
+// Construire le workflow
+var workflow = new WorkflowBuilder()
+    .AddExecutor("uppercase", new UppercaseExecutor())
+    .AddExecutor("reverse", new ReverseExecutor())
+    .AddEdge("uppercase", "reverse")
+    .SetInitialExecutor("uppercase")
+    .Build();
+
+// Exécuter
+var result = await workflow.RunAsync("hello world");
+// Résultat: "DLROW OLLEH"
         </div>
 
-        <div class="box">
-            <h4>Division responsabilités</h4>
-            <ul style="margin-left: 20px; font-size: 1em;">
-                <li>Un agent = une responsabilité claire</li>
-                <li>Éviter les rôles qui se chevauchent</li>
-                <li>Documenter le périmètre de chaque agent</li>
-            </ul>
+        <div class="info-section" style="width: 30%; float: right;">
+            <div class="box info" style="margin-top: 20px;">
+                <p><strong>💡 Note :</strong> Les Workflows permettent de combiner agents, logique custom, et systèmes externes dans un graphe type-safe.</p>
+            </div>
+
+            <div class="box success" style="margin-top: 20px;">
+                <p><strong>🔗 Ressource :</strong> <a href="https://github.com/microsoft/agent-framework/tree/main/dotnet/samples/GettingStarted/Workflows" style="color: #457b9d; text-decoration: underline;">C# Getting Started Sample</a></p>
+            </div>
         </div>
     </div>
 
-    <p class="honor-quote" style="margin-top: 40px;">
-        <strong>Règle d'or :</strong> Si vous hésitez entre 1 agent polyvalent et 3 agents spécialisés,
-        commencez par 1. Divisez seulement quand la complexité le justifie.
-    </p>
-
-    <h3 style="margin-top: 40px;">Indicateurs qu'il faut diviser</h3>
-    <ul>
-        <li>L'agent échoue souvent par manque de contexte spécialisé</li>
-        <li>Les instructions dépassent 500 mots</li>
-        <li>Plusieurs domaines d'expertise incompatibles</li>
-    </ul>
+    <div style="clear: both;"></div>
 </div>

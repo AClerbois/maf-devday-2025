@@ -1,38 +1,39 @@
 
-<!-- Slide 13: CHECK - Code -->
+<!-- Slide 13: CHECK - Long Term Memory -->
 <div class="slide">
     <div class="devday-header">
         <span class="devday-logo">DEVDAY 2025</span>
     </div>
-    <h2>CHECK — AgentThread + Memory en Code</h2>
+    <h2>CHECK — Long Term Memory <span class="emoji">🧠</span></h2>
 
-    <div class="code-block">// Créer un thread (mémoire court terme)
-        var thread = new AgentThread();
+    <h3>AIContextProvider : Composant de mémoire personnalisé</h3>
+    <div class="box info">
+        <p>Permet d'extraire des "souvenirs" et d'injecter du contexte supplémentaire avant chaque invocation.</p>
+    </div>
 
-        // Configurer Memory (mémoire long terme)
-        var memory = new SemanticTextMemory(
-        storage: azureAISearchStore,
-        embeddingGenerator: embeddingModel
-        );
+    <div class="code-block" style="font-size: 0.8em;">public class UserMemory : AIContextProvider
+{
+    protected override async Task InvokedAsync(
+        IEnumerable&lt;ChatMessage&gt; requestMessages,
+        IEnumerable&lt;ChatMessage&gt;? responseMessages,
+        Exception? invokeException,
+        CancellationToken cancellationToken)
+    {
+        // Extraire et stocker des infos importantes
+        // ex: préférences utilisateur, faits clés
+    }
 
-        // L'agent utilise les deux
-        var agent = new ChatCompletionAgent(chatClient)
-        {
-        Instructions = "...",
-        Kernel = kernelWithMemory
-        };
+    protected override async Task&lt;AIContext&gt; InvokingAsync(
+        IEnumerable&lt;ChatMessage&gt; messages,
+        CancellationToken cancellationToken)
+    {
+        // Injecter du contexte additionnel (instructions, messages, tools)
+        return new AIContext { Instructions = "Infos utilisateur: ..." };
+    }
+}
+    </div>
 
-        // Sauvegarder un fait important dans Memory
-        await memory.SaveInformationAsync(
-        collection: "customer_history",
-        text: "Le client Jean préfère les livraisons le mardi",
-        id: "pref_jean_123"
-        );
-
-        // Plus tard, dans une nouvelle session...
-        var response = await agent.InvokeAsync(
-        thread,
-        "Quand Jean préfère-t-il être livré ?"
-        );
-        // L'agent rappellera automatiquement le fait depuis Memory</div>
+    <div class="box success" style="margin-top: 20px;">
+        <p><strong>💡 Astuce :</strong> Utilisez <code>InvokedAsync</code> pour observer les messages et <code>InvokingAsync</code> pour enrichir le contexte.</p>
+    </div>
 </div>
