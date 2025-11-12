@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="AiAgentAspireApp.ApiService/AiAgentAspireApp.ApiService.csproj" />
+  <Project Path="AiAgentAspireApp.AppHost/AiAgentAspireApp.AppHost.csproj" />
+  <Project Path="AiAgentAspireApp.ServiceDefaults/AiAgentAspireApp.ServiceDefaults.csproj" />
+  <Project Path="AiAgentAspireApp.Web/AiAgentAspireApp.Web.csproj" />
+  <Project Path="DevDayContentMcp/DevDayContentMcp.csproj" Id="9e09d5f2-6d2c-4081-ad32-c56efba65281" />
+</Solution>

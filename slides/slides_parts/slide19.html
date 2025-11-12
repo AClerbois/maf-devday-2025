@@ -1,4 +1,3 @@
-
 <!-- Slide 19: Démo -->
 <div class="slide">
     <div class="devday-header">
@@ -8,24 +7,31 @@
 
     <div class="box"
         style="background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%); color: white; padding: 50px; border: 4px solid #e63946;">
-        <h3 style="color: #ffcc00; text-align: center; font-size: 2.5em; margin: 0;">Support Client Multi-Agents
-        </h3>
-        <p style="color: white; text-align: center; font-size: 1.5em; margin-top: 25px;">Architecture complète
-            avec Triage → Experts → Escalation</p>
+        <h3 style="color: #ffcc00; text-align: center; font-size: 2.5em; margin: 0;">LinkedIn Content Creator Workflow</h3>
+        <p style="color: white; text-align: center; font-size: 1.5em; margin-top: 25px;">Automatisation de la création de contenu bilingue pour LinkedIn</p>
     </div>
 
     <h3 style="margin-top: 50px;">Ce que vous allez voir</h3>
     <ol style="font-size: 1.4em;">
-        <li><strong>TriageAgent</strong> analyse la demande client</li>
-        <li>Routage conditionnel vers <strong>TechAgent</strong> ou <strong>BillingAgent</strong></li>
-        <li><strong>TechAgent</strong> utilise RAG sur la documentation</li>
-        <li><strong>BillingAgent</strong> accède à une base de données</li>
-        <li>Escalation automatique si confidence < 0.7</li>
-        <li>Observabilité : traces, logs, métriques</li>
+        <li><strong>McpSearchAgent</strong> recherche dans les données DevDay</li>
+        <li><strong>BingSearchAgent</strong> enrichit les informations sur le speaker</li>
+        <li><strong>StoryCreatorAgent</strong> génère une histoire LinkedIn engageante</li>
+        <li><strong>EditorAgent</strong> édite et polit le contenu</li>
+        <li><strong>TranslatorAgent</strong> traduit le contenu en français et anglais</li>
+        <li>Résultat final : Contenu bilingue prêt à publier</li>
     </ol>
 
+    <h3 style="margin-top: 50px;">Pour aller plus loin</h3>
+    <ul style="font-size: 1.4em; margin-top: 20px;">
+        <li>Utilisation d'un MCP pour publier directement dans LinkedIn</li>
+        <li>Génération d'images personnalisées pour accompagner les posts</li>
+        <li>Planification automatique des publications sur LinkedIn</li>
+        <li>Analyse des performances des posts avec des modèles IA</li>
+        <li>Personnalisation des posts en fonction de l'audience cible</li>
+        <li>Support pour d'autres langues (espagnol, allemand, etc.)</li>
+    </ul>
+
     <div class="box info" style="margin-top: 40px;">
-        <p><strong>Technologies :</strong> MAF + Azure OpenAI + Azure AI Search (RAG) + Azure CosmosDB (state)
-        </p>
+        <p><strong>Technologies :</strong> Microsoft Agent Framework + MCP + Bing Search + Blazor Server</p>
     </div>
 </div>

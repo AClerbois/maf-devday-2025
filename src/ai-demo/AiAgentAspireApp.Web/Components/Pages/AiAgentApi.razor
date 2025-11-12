@@ -1,0 +1,34 @@
+﻿@page "/aiagetapi"
+@rendermode InteractiveServer
+@using System.Text
+@using Markdig
+@using Microsoft.Agents.AI
+@using Microsoft.Agents.AI.Workflows
+@using Microsoft.Extensions.AI
+@using System.ComponentModel
+
+@* @inject IChatClient ChatClient *@
+
+
+<h3>Story Writing Agent Chat using Microsoft Agent Framework </h3>
+
+<div class="chat-container">
+    <div class="chat-messages" @ref="messagesContainer">
+        @foreach (var message in Messages)
+        {
+             <div class="message @(message.IsUser ? "user-message" : "ai-message")">
+                @((MarkupString)Markdown.ToHtml(message.Content))
+            </div> 
+        }
+    </div>
+
+    <div class="chat-input-area">
+        <input type="text"
+               @bind="userInput"
+               @bind:event="oninput"
+               @onkeyup="HandleKeyUp"
+               placeholder="Type your message..."
+               class="chat-input" />
+        <button @onclick="SendMessage" class="send-button" disabled="@isStreaming">Send</button>
+    </div>
+</div>
