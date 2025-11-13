@@ -1,0 +1,197 @@
+﻿@page "/"
+@rendermode InteractiveServer
+@using System.Text
+@using Markdig
+@using Microsoft.Agents.AI
+@using Microsoft.Agents.AI.Workflows
+@using Microsoft.Extensions.AI
+@using System.ComponentModel
+
+<PageTitle>LinkedIn Content Creator - AI Chat</PageTitle>
+
+<div class="chat-header">
+    <h3>🚀 LinkedIn Content Creator</h3>
+    <p class="chat-subtitle">Créez du contenu professionnel pour LinkedIn en quelques secondes</p>
+</div>
+
+<div class="chat-container">
+    <div class="chat-messages" @ref="messagesContainer">
+        @if (Messages.Count == 0)
+        {
+            <div class="welcome-message">
+                <div class="welcome-icon">💡</div>
+                <h4>Bienvenue dans le Créateur de Contenu LinkedIn !</h4>
+                <p>Donnez-moi le <strong>nom d'un speaker</strong> ou le <strong>titre d'une session</strong> DevDay, et je créerai pour vous un post LinkedIn engageant en français et en anglais.</p>
+                <div class="example-queries">
+                    <p><strong>Exemples de recherches :</strong></p>
+                    <ul>
+                        <li>Scott Hanselman</li>
+                        <li>Introduction to Azure AI</li>
+                        <li>Satya Nadella keynote</li>
+                    </ul>
+                </div>
+            </div>
+        }
+        
+        @foreach (var message in Messages)
+        {
+            <div class="message @(message.IsUser ? "user-message" : "ai-message")">
+                @((MarkupString)Markdown.ToHtml(message.Content))
+            </div>
+        }
+    </div>
+
+    <div class="chat-input-area">
+        <input type="text"
+               @bind="userInput"
+               @bind:event="oninput"
+               @onkeyup="HandleKeyUp"
+               placeholder="Entrez le nom du speaker ou le titre de la session..."
+               class="chat-input"
+               disabled="@isStreaming" />
+        <button @onclick="SendMessage" 
+                class="send-button" 
+                disabled="@isStreaming">
+            @if (isStreaming)
+            {
+                <span class="spinner"></span>
+                <span>Création...</span>
+            }
+            else
+            {
+                <span>✨ Créer</span>
+            }
+        </button>
+    </div>
+</div>
+
+<style>
+    .chat-header {
+        text-align: center;
+        margin-bottom: 20px;
+        padding: 20px;
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+        border-radius: 16px;
+        backdrop-filter: blur(10px);
+    }
+
+    .chat-header h3 {
+        margin: 0 0 8px 0;
+        color: #f3f4f6;
+        font-size: 28px;
+        font-weight: 700;
+    }
+
+    .chat-subtitle {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 14px;
+    }
+
+    .welcome-message {
+        text-align: center;
+        padding: 40px 20px;
+        color: rgba(255, 255, 255, 0.8);
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .welcome-icon {
+        font-size: 64px;
+        margin-bottom: 20px;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    @@keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+    }
+
+    .welcome-message h4 {
+        color: #f3f4f6;
+        margin-bottom: 16px;
+        font-size: 24px;
+    }
+
+    .welcome-message p {
+        line-height: 1.6;
+        margin-bottom: 24px;
+    }
+
+    .example-queries {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .example-queries p {
+        margin-bottom: 12px;
+        font-weight: 600;
+        color: #a78bfa;
+    }
+
+    .example-queries ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        text-align: left;
+    }
+
+    .example-queries li {
+        padding: 8px 12px;
+        margin: 6px 0;
+        background: rgba(99, 102, 241, 0.1);
+        border-radius: 8px;
+        border-left: 3px solid #6366f1;
+        font-family: 'Courier New', monospace;
+        color: #e5e7eb;
+    }
+
+    .spinner {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-top-color: white;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        margin-right: 8px;
+    }
+
+    @@keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+
+    /* Enhanced message styling for workflow stages */
+    .ai-message h1 {
+        font-size: 20px;
+        color: #a78bfa;
+        margin-top: 0;
+        border-bottom: 2px solid rgba(167, 139, 250, 0.3);
+        padding-bottom: 8px;
+    }
+
+    .ai-message h2 {
+        font-size: 18px;
+        color: #8b5cf6;
+        margin-top: 20px;
+        margin-bottom: 12px;
+    }
+
+    .ai-message hr {
+        border: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin: 16px 0;
+    }
+
+    .ai-message ul {
+        padding-left: 20px;
+    }
+
+    .ai-message li {
+        margin: 8px 0;
+    }
+</style>
+
