@@ -40,7 +40,9 @@ public class LinkedInContentWorkflow
 You are a specialized agent that searches for DevDay speaker and session information.
 Your task is to search for the speaker or session based on the user's query.
 
-Return your response in JSON format:
+CRITICAL: Return ONLY a valid JSON object (no markdown, no code blocks, no additional text).
+
+Format:
 {
   "found": true/false,
   "speakerName": "Full speaker name",
@@ -50,7 +52,29 @@ Return your response in JSON format:
   "message": "Explanation if not found"
 }
 
-If no results are found, set found to false and provide a helpful message.
+RULES:
+- Return ONLY the JSON object, nothing else
+- Do NOT wrap in ```json or ``` code blocks
+- Do NOT add explanatory text before or after
+- If no results are found, set found to false and provide a helpful message in the message field
+
+Example of CORRECT output:
+{
+  "found": true,
+  "speakerName": "Scott Hanselman",
+  "sessionTitle": "Building Modern Apps",
+  "sessionDescription": "Learn how to...",
+  "speakerBio": "Scott is a...",
+  "message": ""
+}
+
+Example of WRONG output (DO NOT DO THIS):
+```json
+{
+  "found": true,
+  ...
+}
+```
 """,
             tools: [.. mcpTools.Cast<AITool>()]);
 
@@ -250,14 +274,29 @@ public class McpSearchExecutor : Executor<ChatMessage, McpSearchResult>
         _logger.LogInformation("Starting MCP search for query: {Query}", message.Text);
         var startTime = DateTime.UtcNow;
         
+        string? responseText = null;
+        
         try
         {
             var response = await _agent.RunAsync([message], cancellationToken: cancellationToken);
-            var resultText = response.Text ?? "{}";
+            responseText = response.Text ?? "{}";
             
-            _logger.LogDebug("MCP search response: {Response}", resultText);
+            _logger.LogDebug("MCP search raw response: {Response}", responseText);
             
-            var result = JsonSerializer.Deserialize<McpSearchResult>(resultText, 
+            // Nettoyer le JSON si nécessaire (enlever les markdown code blocks)
+            if (responseText.Contains("```json") || responseText.Contains("```"))
+            {
+                _logger.LogWarning("MCP search response contains markdown code blocks, cleaning up");
+                var startIndex = responseText.IndexOf("{");
+                var endIndex = responseText.LastIndexOf("}");
+                if (startIndex >= 0 && endIndex > startIndex)
+                {
+                    responseText = responseText.Substring(startIndex, endIndex - startIndex + 1);
+                    _logger.LogDebug("Cleaned JSON: {CleanedJson}", responseText);
+                }
+            }
+            
+            var result = JsonSerializer.Deserialize<McpSearchResult>(responseText, 
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
             if (result?.Found == false)
@@ -266,16 +305,28 @@ public class McpSearchExecutor : Executor<ChatMessage, McpSearchResult>
                     message.Text, result.Message);
                 await context.YieldOutputAsync(result.Message ?? "Aucune information trouvée pour cette recherche.");
             }
-            else
+            else if (result != null)
             {
                 _logger.LogInformation("MCP search successful. Found speaker: {SpeakerName}, Session: {SessionTitle}", 
-                    result?.SpeakerName, result?.SessionTitle);
+                    result.SpeakerName, result.SessionTitle);
             }
 
             var duration = DateTime.UtcNow - startTime;
             _logger.LogInformation("MCP search completed in {Duration}ms", duration.TotalMilliseconds);
 
             return result ?? new McpSearchResult { Found = false, Message = "Erreur lors de la recherche" };
+        }
+        catch (JsonException ex)
+        {
+            var duration = DateTime.UtcNow - startTime;
+            _logger.LogError(ex, "MCP search JSON parsing failed after {Duration}ms for query: {Query}. Raw response: {Response}", 
+                duration.TotalMilliseconds, message.Text, responseText ?? "null");
+            
+            return new McpSearchResult 
+            { 
+                Found = false, 
+                Message = $"Erreur de parsing JSON: {ex.Message}"
+            };
         }
         catch (Exception ex)
         {
